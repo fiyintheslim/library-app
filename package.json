@@ -1,0 +1,22 @@
+{
+  "name": "library-app",
+  "version": "1.0.0",
+  "description": "A library CRUD application",
+  "main": "app.js",
+  "scripts": {
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon ./backend/server.js",
+    "prod": "SET NODE_ENV=PRODUCTION& nodemon ./backend/server.js"
+  },
+  "author": "Fiyin",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.28.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5",
+    "validator": "^13.7.0"
+  }
+}

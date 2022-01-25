@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useAlert } from "react-alert";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../actions/userActions";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const [img, setImg] = useState("/img/user.svg");
+
+  const { loading, error } = useSelector((state) => state.auth);
+
+  const [imgDisp, setImgDisp] = useState("/img/user.svg");
+  const [img, setImg] = useState("");
   const [user, setUser] = useState({});
 
   useEffect(() => {
     console.log(user);
-  }, [user]);
+    if (error) {
+      alert.error(error.errorMessage);
+    }
+  }, [user, loading, error]);
 
   const handleInput = (e) => {
     if (e.target.name === "avatar") {
@@ -21,6 +28,7 @@ const SignUp = () => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
       fileReader.onload = () => {
+        setImgDisp(fileReader.result);
         setImg(fileReader.result);
       };
     } else {
@@ -28,7 +36,7 @@ const SignUp = () => {
       console.log("not avatar", user);
     }
   };
-  const register = (e) => {
+  const submit = (e) => {
     e.preventDefault();
 
     if (user.password !== user.confirmPassword) {
@@ -39,7 +47,7 @@ const SignUp = () => {
     formData.set("email", user.email);
     formData.set("password", user.password);
     formData.set("avatar", img);
-    console.log(formData);
+
     register(dispatch, formData);
   };
   return (
@@ -49,12 +57,12 @@ const SignUp = () => {
         className="d-flex justify-content-center mt-5 h-100"
       >
         <form
-          onSubmit={register}
+          onSubmit={(e) => submit(e)}
           className="w-100 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
         >
           <h5 className="fs-2">Register</h5>
           <img
-            src={img}
+            src={imgDisp}
             style={{ width: "170px", height: "170px" }}
             alt="avatar"
             title="avatar"
@@ -65,7 +73,7 @@ const SignUp = () => {
               Name
             </label>
             <input
-              type="email"
+              type="text"
               className="form-control"
               id="exampleInputName"
               aria-describedby="nameHelp"
@@ -116,19 +124,23 @@ const SignUp = () => {
               onChange={handleInput}
             />
           </div>
-          <div class="mb-3 w-100">
-            <label for="formFile" class="form-label">
+          <div className="mb-3 w-100">
+            <label htmlFor="formFile" className="form-label">
               Add avatar
             </label>
             <input
-              class="form-control"
+              className="form-control"
               type="file"
               name="avatar"
               id="formFile"
               onChange={handleInput}
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">
+          <button
+            type="submit"
+            className="btn btn-primary w-100"
+            disabled={loading}
+          >
             Submit
           </button>
         </form>

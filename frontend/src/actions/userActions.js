@@ -9,6 +9,7 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
+  CLEAR_ERRORS,
 } from "../constants/userConstants";
 
 export const login = async (dispatch, data) => {
@@ -27,14 +28,16 @@ export const login = async (dispatch, data) => {
 export const register = async (dispatch, user) => {
   try {
     dispatch({ type: REGISTER_USER_REQUEST });
-    const options = {
+    const config = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     };
-    const account = await axios.post("/register", user, options);
-    dispatch({ type: REGISTER_USER_SUCCESS, payload: account });
+    const account = await axios.post("/api/v1/register", user, config);
+    dispatch({ type: REGISTER_USER_SUCCESS, payload: account.data });
   } catch (err) {
     dispatch({ type: REGISTER_USER_FAIL, payload: err.response.data });
+
+    dispatch({ type: CLEAR_ERRORS });
   }
 };

@@ -8,9 +8,10 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
+  CLEAR_ERRORS,
 } from "../constants/userConstants";
 
-const userReducer = async (state = {}, action) => {
+const userReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_USER_REQUEST:
     case LOGIN_USER_REQUEST:
@@ -23,7 +24,7 @@ const userReducer = async (state = {}, action) => {
       return {
         ...state,
         loading: false,
-        user: action.payload,
+        user: action.payload.user,
         isAuthenticated: true,
       };
     case LOAD_USER_FAIL:
@@ -35,6 +36,8 @@ const userReducer = async (state = {}, action) => {
         isAuthenticated: false,
         error: action.payload,
       };
+    case CLEAR_ERRORS:
+      return { ...state, error: null };
     default:
       return state;
   }

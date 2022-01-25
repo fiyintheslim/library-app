@@ -37,14 +37,14 @@ const userSchema = new mongoose.Schema({
       ],
     },
   ],
-  //   avatar:{
-  //     publicId:{
-  //         type:String
-  //     },
-  //     url:{
-  //         type:String
-  //     }
-  //   },
+  avatar: {
+    publicId: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -68,7 +68,6 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.comparePassword = async function (pass) {
-  console.log("password", pass, this.password);
   const compared = await bcrypt.compare(pass, this.password);
   return compared;
 };

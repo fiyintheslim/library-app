@@ -5,7 +5,7 @@ const sendToken = async (user, res, token) => {
       maxAge: process.env.COOKIE_EXP * 24 * 60 * 60 * 1000,
       httpOnly: true,
     })
-    .json({ sucess: true, token });
+    .json({ sucess: true, token, user });
 };
 
 module.exports = sendToken;

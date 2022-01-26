@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../actions/userActions";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading, error, success } = useSelector((state) => state.auth);
 
   const [imgDisp, setImgDisp] = useState("/img/user.svg");
   const [img, setImg] = useState("");
@@ -18,6 +20,9 @@ const SignUp = () => {
     console.log(user);
     if (error) {
       alert.error(error.errorMessage);
+    }
+    if (success) {
+      navigate("/");
     }
   }, [user, loading, error]);
 

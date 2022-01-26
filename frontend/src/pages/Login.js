@@ -1,16 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useAlert } from "react-alert";
+import { login } from "../actions/userActions";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const { user, isAuthenticated, loading, error } = useSelector(
+    (state) => state.auth
+  );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+    }
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [loading, error, isAuthenticated]);
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.set("email", email);
+    formData.set("password", password);
+    login(dispatch, formData);
   };
+
   return (
     <>
       <Container className="mt-5 h-100">
         <form
-          onSubmit={Login}
+          onSubmit={handleSubmit}
           className="w-100 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
         >
           <h5 className="fs-2">Login</h5>
@@ -23,6 +47,7 @@ const Login = () => {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <div id="emailHelp" className="form-text">
               We'll never share your email with anyone else.
@@ -36,10 +61,15 @@ const Login = () => {
               type="password"
               className="form-control"
               id="exampleInputPassword1"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">
+          <button
+            type="submit"
+            disabled={loading ? true : false}
+            className="btn btn-primary w-100"
+          >
             Submit
           </button>
           <div className="d-flex justify-content-evenly">

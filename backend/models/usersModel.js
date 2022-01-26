@@ -23,20 +23,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
-  books: [
-    {
-      title: String,
-      reviewCount: Number,
-      avgReview: Number,
-      reviews: [
-        {
-          user: mongoose.ObjectId,
-          rating: Number,
-          comment: String,
-        },
-      ],
-    },
-  ],
+
   avatar: {
     publicId: {
       type: String,

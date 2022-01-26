@@ -19,10 +19,11 @@ export const login = async (dispatch, data) => {
       headers: { "Content-Type": "application/json" },
     };
 
-    const user = await axios.post("/login", data, options);
+    const user = await axios.post("/api/v1/login", data, options);
     dispatch({ type: LOGIN_USER_SUCCESS, payload: user.data.user });
   } catch (err) {
-    dispatch({ type: LOGIN_USER_FAIL, payload: err.response });
+    dispatch({ type: LOGIN_USER_FAIL, payload: err.response.data.errorMessage });
+    dispatch({ type: CLEAR_ERRORS });
   }
 };
 export const register = async (dispatch, user) => {

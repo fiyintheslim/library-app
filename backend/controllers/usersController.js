@@ -11,6 +11,7 @@ exports.login = async (req, res, next) => {
     "+password"
   );
   const compare = await user.comparePassword(req.body.password);
+  console.log(compare);
   if (!compare) {
     return next(new ErrorHandler("Wrong password or email", 404));
   }
@@ -31,7 +32,7 @@ exports.signUp = catchAsyncError(async (req, res, next) => {
     email,
     password,
     avatar: {
-      public_id: result.public_id,
+      publicId: result.public_id,
       url: result.secure_url,
     },
   });

@@ -2,20 +2,32 @@ import "./App.css";
 import { useEffect } from "react";
 import { Provider, positions, transitions } from "react-alert";
 import Template from "react-alert-template-basic";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Spinner, Container } from "react-bootstrap";
+import { useAlert } from "react-alert";
+import { loadUser } from "./actions/userActions";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App({ children }) {
-  const { loading, isAuthenticated, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  //const alert = useAlert();
+  const { loading, isAuthenticated, user, error } = useSelector(
+    (state) => state.auth
+  );
   const options = {
     position: positions.BOTTOM_CENTER,
     transition: transitions.FADE,
     timeout: 3000,
     offset: "30px",
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // if (error) {
+    //   alert.error(error);
+    // }
+    loadUser(dispatch);
+  }, []);
   return (
     <>
       <Provider template={Template} {...options}>
@@ -27,6 +39,7 @@ function App({ children }) {
         ) : (
           children
         )}
+        <Footer />
       </Provider>
     </>
   );

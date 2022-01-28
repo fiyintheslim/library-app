@@ -71,3 +71,10 @@ animation-timing-function: ease-out;
   from{transform:translateX(80px)}
   to{transform:translateX(-80px)}
 }
+a{
+  text-decoration:none;
+
+}
+.bibli-card{
+  
+}

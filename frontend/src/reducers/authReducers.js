@@ -8,6 +8,11 @@ import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAIL,
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
@@ -16,7 +21,9 @@ const userReducer = (state = {}, action) => {
     case LOAD_USER_REQUEST:
     case LOGIN_USER_REQUEST:
     case REGISTER_USER_REQUEST:
+    case LOGOUT_REQUEST:
       return {
+        ...state,
         loading: true,
       };
     case LOAD_USER_SUCCESS:
@@ -40,8 +47,16 @@ const userReducer = (state = {}, action) => {
         isAuthenticated: false,
         error: action.payload,
       };
+
     case CLEAR_ERRORS:
       return { ...state, error: null };
+    case LOGOUT_SUCCESS:
+      return {
+        loading: false,
+        user: null,
+        isAuthenticated: false,
+        message: action.payload,
+      };
     default:
       return state;
   }

@@ -3,7 +3,7 @@ const sendToken = require("../middlewares/sendToken");
 const catchAsyncError = require("../utils/handleAsyncError");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("cloudinary").v2;
-
+//parameters message, statuscode
 const ErrorHandler = require("../utils/ErrorHandler");
 
 exports.login = async (req, res, next) => {
@@ -53,9 +53,42 @@ exports.profile = catchAsyncError(async (req, res, next) => {
     const verify = jwt.verify(token, process.env.JWT_SECRET);
     console.log("verified", verify);
     const user = await Users.findById(verify.id);
-
+    console.log("user", user);
     res.status(200).json({ success: true, user });
   } catch (err) {
     return next(new ErrorHandler("Invalid token", 400));
   }
+});
+
+exports.logout = catchAsyncError(async (req, res, next) => {
+  return res
+    .status(200)
+    .cookie("token", null, { expires: new Date(Date.now()) })
+    .json({ success: true, message: "Logged out successfully" });
+});
+
+exports.changePassword = catchAsyncError(async (req, res, next) => {
+  const token = req.cookies.token;
+  console.log(req.body)
+  const {oldPassword, password} = req.body
+  if(!token){
+    return next(new ErrorHandler("Login to change password", 400))
+  }
+  const id = jwt.verify(token, process.env.JWT_SECRET);
+  if(!token){
+    return next(new ErrorHandler("Invalid token", 400))
+  }
+  
+  
+  const user = await Users.findById(id.id).select("+password");
+  
+  const compare = await user.comparePassword(oldPassword)
+  if(!compare){
+    return next(new ErrorHandler("Wrong old password", 400))
+  }
+  user.password = password;
+  user.save();
+  
+  return res.status(200).json({ success:true, message:"Password Updated"})
+  
 });

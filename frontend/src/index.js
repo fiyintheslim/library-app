@@ -7,6 +7,9 @@ import App from "./App";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
+import AddBook from "./pages/AddBook";
 import store from "./store";
 
 ReactDOM.render(
@@ -22,8 +25,46 @@ ReactDOM.render(
               </App>
             }
           />
-          <Route path="/login" element={<App><Login /> </App>} />
-          <Route path="/register" element={<App><SignUp /></App>} />
+          <Route
+            path="/login"
+            element={
+              <App>
+                <Login />{" "}
+              </App>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <App>
+                <SignUp />
+              </App>
+            }
+          />
+          <Route
+            path="/me"
+            element={
+              <App>
+                <Profile />
+              </App>
+            }
+          />
+          <Route
+            path="/password/update"
+            element={
+              <App>
+                <ChangePassword />
+              </App>
+            }
+          />
+          <Route
+            path="/add"
+            element={
+              <App>
+                <AddBook />
+              </App>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>

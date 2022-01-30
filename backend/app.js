@@ -16,8 +16,10 @@ app.use(fileUpload())
 dotenv.config({ path: "./backend/configurations/var.env" });
 
 const users = require("./routes/usersRoutes");
+const books = require("./routes/booksRoutes");
 
 app.use("/api/v1", users);
+app.use("/api/v1", books);
 
 app.use(sendError);
 

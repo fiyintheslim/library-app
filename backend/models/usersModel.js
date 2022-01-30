@@ -17,10 +17,12 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please enter password"],
+    min: [6, "Password must be more than 6 characters"],
     select: false,
   },
   role: {
     type: String,
+    enum: ["user", "admin"],
     default: "user",
   },
 

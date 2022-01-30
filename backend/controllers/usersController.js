@@ -46,17 +46,14 @@ exports.signUp = catchAsyncError(async (req, res, next) => {
 exports.profile = catchAsyncError(async (req, res, next) => {
   const token = req.cookies.token;
 
-  if (!token) {
-    return next(new ErrorHandler("Login to access this resource", 404));
-  }
   try {
     const verify = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("verified", verify);
+
     const user = await Users.findById(verify.id);
-    console.log("user", user);
+
     res.status(200).json({ success: true, user });
   } catch (err) {
-    return next(new ErrorHandler("Invalid token", 400));
+    return next(new ErrorHandler("Something went wrong", 400));
   }
 });
 
@@ -69,26 +66,17 @@ exports.logout = catchAsyncError(async (req, res, next) => {
 
 exports.changePassword = catchAsyncError(async (req, res, next) => {
   const token = req.cookies.token;
-  console.log(req.body)
-  const {oldPassword, password} = req.body
-  if(!token){
-    return next(new ErrorHandler("Login to change password", 400))
-  }
-  const id = jwt.verify(token, process.env.JWT_SECRET);
-  if(!token){
-    return next(new ErrorHandler("Invalid token", 400))
-  }
-  
-  
+  console.log(req.body);
+  const { oldPassword, password } = req.body;
+
   const user = await Users.findById(id.id).select("+password");
-  
-  const compare = await user.comparePassword(oldPassword)
-  if(!compare){
-    return next(new ErrorHandler("Wrong old password", 400))
+
+  const compare = await user.comparePassword(oldPassword);
+  if (!compare) {
+    return next(new ErrorHandler("Wrong old password", 400));
   }
   user.password = password;
   user.save();
-  
-  return res.status(200).json({ success:true, message:"Password Updated"})
-  
+
+  return res.status(200).json({ success: true, message: "Password Updated" });
 });

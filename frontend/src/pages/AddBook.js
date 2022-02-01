@@ -3,29 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
+import { addBook } from "../actions/booksActions";
 
 const AddBook = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { loading, error, success, isAuthenticated } = useSelector(
-    (state) => state.auth
-  );
+  const { error, books, loading } = useSelector((state) => state.books);
 
   const [imgDisp, setImgDisp] = useState("/img/book.svg");
   const [img, setImg] = useState("");
   const [book, setBook] = useState({});
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     if (error) {
-      alert.error(error.errorMessage);
+      alert.error(error);
     }
-    if (!isAuthenticated) {
-      navigate("/");
+    if (books) {
+      alert.success("Books added");
+      navigate("/books");
     }
-  }, [book, loading, error]);
+  }, [books, loading, error, alert, navigate]);
 
   const handleInput = (e) => {
     if (e.target.name === "cover") {
@@ -53,15 +52,15 @@ const AddBook = () => {
     console.log(genres);
     const { title, description, link } = book;
     if (!img) {
-      alert.error("Please add book cover image.");
+      return alert.error("Please add book cover image.");
     } else if (!title) {
-      alert.error("Please enter book title");
-    } else if (!description) {
-      alert.error("Please enter book description");
-    } else if (!genres) {
-      alert.error("Select at least one genre");
+      return alert.error("Please enter book title");
     } else if (!link) {
-      alert.error("Please enter google drive link to the book.");
+      return alert.error("Please enter google drive link to the book.");
+    } else if (!description) {
+      return alert.error("Please enter book description");
+    } else if (genres.length <= 0) {
+      return alert.error("Select at least one genre");
     }
     const formData = new FormData();
     formData.set("title", title);
@@ -71,6 +70,7 @@ const AddBook = () => {
     formData.set("link", link);
 
     console.log(book);
+    addBook(dispatch, formData);
   };
   const genres = [
     "action",
@@ -86,6 +86,7 @@ const AddBook = () => {
     "cookbook",
     "poetry",
     "self-help",
+    "educational",
   ];
   return (
     <>
@@ -128,7 +129,7 @@ const AddBook = () => {
               className="form-control"
               id="bookTitle"
               aria-describedby="nameHelp"
-              name="name"
+              name="title"
               onChange={handleInput}
             />
           </div>
@@ -154,7 +155,7 @@ const AddBook = () => {
               className="form-control"
               id="description"
               aria-describedby="emailHelp"
-              name="email"
+              name="description"
               onChange={handleInput}
             ></textarea>
           </div>

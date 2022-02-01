@@ -33,7 +33,7 @@ function App({ children }) {
       <Provider template={Template} {...options}>
         <Header user={user} auth={isAuthenticated} />
         {loading ? (
-          <Container>
+          <Container className="w-100 h-100 d-flex justify-content-center align-items-center">
             <Spinner animation="border" variant="primary" />
           </Container>
         ) : (

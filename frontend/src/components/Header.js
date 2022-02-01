@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Navbar,
@@ -12,16 +12,24 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
+import {} from "../actions/booksActions";
 
 const Header = ({ user, auth }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //const { user } = useSelector((state) => state.auth);
   //useEffect(() => {}, [user]);
+  const [search, setSearch] = useState("");
   const logoutHandler = async (e) => {
     logout(dispatch);
     navigate("/");
   };
+
+  const handleSubmit = (e) => {
+    //e.preventDefault();
+    console.log(search);
+  };
+
   return (
     <Navbar
       bg="primary"
@@ -78,15 +86,18 @@ const Header = ({ user, auth }) => {
               )}
             </NavDropdown>
           </Nav>
-          <Form className="d-flex">
+          <form className="d-flex">
             <FormControl
               type="search"
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+            <Button variant="outline-success" onClick={handleSubmit}>
+              Search
+            </Button>
+          </form>
         </Navbar.Collapse>
       </Container>
     </Navbar>

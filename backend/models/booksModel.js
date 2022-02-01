@@ -1,30 +1,35 @@
 const mongoose = require("mongoose");
 
 const BookSchema = new mongoose.Schema({
-  books: {
-    title: { type: String, required: true },
-    cover: {
-      publicId: String,
-      url: String,
-    },
-    description: {
-      type: String,
-      min: [100, "Description should be between 100 and 180 charcters long"],
-      max: [180, "Description should be between 100 and 180 charcters long"],
-      required: [true, "Please enter description"],
-    },
-    genres: [String],
-    link: String,
-    userId: mongoose.ObjectId,
-    reviewCount: Number,
-    avgRating: Number,
-    ratings: [
-      {
-        user: mongoose.ObjectId,
-        rating: Number,
-        comment: String,
-      },
+  title: { type: String, required: true },
+  cover: {
+    publicId: String,
+    url: String,
+  },
+  description: {
+    type: String,
+    minLength: [50, "Description should be between 50 and 200 charcters long"],
+    maxLength: [
+      200,
+      "Description should be between 500 and 200 charcters long",
     ],
+    required: [true, "Please enter description"],
+  },
+  genres: { type: [String], required: true },
+  link: String,
+  userId: mongoose.ObjectId,
+  reviewCount: Number,
+  avgRating: Number,
+  ratings: [
+    {
+      user: mongoose.ObjectId,
+      rating: Number,
+      comment: String,
+    },
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 

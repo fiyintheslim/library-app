@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
 import AddBook from "./pages/AddBook";
+import Books from "./pages/Books";
 import store from "./store";
 
 ReactDOM.render(
@@ -62,6 +63,14 @@ ReactDOM.render(
             element={
               <App>
                 <AddBook />
+              </App>
+            }
+          />
+          <Route
+            path="/books"
+            element={
+              <App>
+                <Books />
               </App>
             }
           />

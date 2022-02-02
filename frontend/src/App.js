@@ -5,6 +5,7 @@ import Template from "react-alert-template-basic";
 import { useSelector, useDispatch } from "react-redux";
 import { Spinner, Container } from "react-bootstrap";
 import { useAlert } from "react-alert";
+import { Outlet } from "react-router-dom";
 import { loadUser } from "./actions/userActions";
 
 import Header from "./components/Header";
@@ -32,13 +33,16 @@ function App({ children }) {
     <>
       <Provider template={Template} {...options}>
         <Header user={user} auth={isAuthenticated} />
-        {loading ? (
-          <Container className="w-100 h-100 d-flex justify-content-center align-items-center">
-            <Spinner animation="border" variant="primary" />
-          </Container>
-        ) : (
-          children
-        )}
+        <div style={{ minHeight: "80vh" }}>
+          {loading ? (
+            <Container className="w-100 h-100 d-flex justify-content-center align-items-center">
+              <Spinner animation="border" variant="primary" />
+            </Container>
+          ) : (
+            children
+          )}
+        </div>
+
         <Footer />
       </Provider>
     </>

@@ -33,7 +33,7 @@ exports.addBook = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getBooks = catchAsyncErrors(async (req, res, next) => {
-  const paginationCount = 2;
+  const paginationCount = 3;
   const totalBooksCount = await Books.count({});
   const books = new RoutesHandler(req, Books)
     .search()
@@ -50,4 +50,10 @@ exports.getBooks = catchAsyncErrors(async (req, res, next) => {
     totalBooksCount,
     pages: Math.ceil(totalBooksCount / paginationCount),
   });
+});
+
+exports.details = catchAsyncErrors(async (req, res, next) => {
+  const id = req.params.id;
+  const book = await Books.findById(id);
+  return res.status(200).json({ success: true, book });
 });

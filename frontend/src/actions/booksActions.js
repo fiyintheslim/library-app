@@ -30,11 +30,12 @@ export const addBook = async (dispatch, data) => {
   }
 };
 
-export const searchBook = async (dispatch, data) => {
+export const searchBook = async (dispatch, page, categories) => {
   try {
     dispatch({ type: REQUEST_BOOKS });
 
-    const result = await axios.get(`/api/v1/books?page=${data.page || 1}`);
+    const result = await axios.get(`/api/v1/books?page=${page || 1}`);
+
     dispatch({ type: REQUEST_BOOKS_SUCCESS, payload: result.data });
   } catch (error) {
     dispatch({

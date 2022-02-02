@@ -24,7 +24,7 @@ class Routes {
     const page = this.req.query.page || 1;
     const skip = no * (page - 1);
 
-    this.books = this.books.skip(skip).limit(no);
+    this.books = this.books.limit(no).skip(skip);
 
     return this;
   }

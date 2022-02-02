@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
 import AddBook from "./pages/AddBook";
 import Books from "./pages/Books";
+import Details from "./pages/Details";
 import store from "./store";
 
 ReactDOM.render(
@@ -71,6 +72,14 @@ ReactDOM.render(
             element={
               <App>
                 <Books />
+              </App>
+            }
+          />
+          <Route
+            path="/details/:id"
+            element={
+              <App>
+                <Details />
               </App>
             }
           />

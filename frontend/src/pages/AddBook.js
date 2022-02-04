@@ -90,6 +90,7 @@ const AddBook = () => {
     "poetry",
     "self-help",
     "educational",
+    "finance",
   ];
   return (
     <>

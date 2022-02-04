@@ -18,28 +18,15 @@ const Books = () => {
   useEffect(() => {
     console.log("genre", genre);
     const cat = document.getElementsByName("genre");
-    Array.from(cat).forEach((e, i) => {
-      const id = genre.includes(e.getAttribute("id"));
-      if (id) {
-        e.checked = true;
-      }
-    });
+
     searchBook(dispatch, page, location.search.replace("?", ""), genre);
-  }, [location, genre]);
+  }, [location, genre, page]);
 
   const handlePaginationClick = (e) => {
-    const selected = e.nextSelectedPage;
-    let data = { page: selected + 1 };
-
-    console.log("Click", selected);
-    console.log(selected);
-    //searchBook(dispatch, data);
-    setPage(selected);
-    // console.log(page);
-    searchBook(dispatch, selected + 1, "");
+    setPage(e.nextSelectedPage);
   };
 
-  const handleInput = () => {
+  const handleInput = (e) => {
     const genres = [];
     const genre = document.getElementsByName("genre");
     Array.from(genre).forEach((g) => {
@@ -47,7 +34,7 @@ const Books = () => {
         genres.push(g.value);
       }
     });
-    console.log(genres);
+    setPage(0);
     setGenre(genres);
   };
 
@@ -66,6 +53,7 @@ const Books = () => {
     "poetry",
     "self-help",
     "educational",
+    "finance",
   ];
 
   return (
@@ -84,40 +72,34 @@ const Books = () => {
                     style={{ padding: "0px", margin: "0px" }}
                   >
                     <Row>
-                      {genres.map((genre) => (
+                      {genres.map((g) => (
                         <Col lg={12}>
                           <div class="form-check col-sm-3">
                             <input
                               className="form-check-input"
                               type="checkbox"
-                              id={genre}
+                              id={g}
                               name="genre"
-                              value={genre}
+                              value={g}
+                              checked={genre.includes(g) ? true : false}
+                              onChange={handleInput}
                             />
                             <label
                               className="form-check-label text-capitalize"
                               style={{ fontSize: "10px" }}
-                              htmlFor={genre}
+                              htmlFor={g}
                             >
-                              {genre}
+                              {g}
                             </label>
                           </div>
                         </Col>
                       ))}
-                      <Col lg={12}>
-                        <button
-                          className="btn btn-md btn-primary"
-                          onClick={handleInput}
-                        >
-                          Filter
-                        </button>
-                      </Col>
                     </Row>
                   </Container>
                 </Col>
                 <Col lg={10} className="">
                   <Container fluid>
-                    <Row className="g-2">
+                    <Row className="g-2 row-cols-4">
                       {books.books.map((book) => {
                         return (
                           <Col

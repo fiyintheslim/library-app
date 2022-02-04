@@ -9,14 +9,15 @@ exports.addBook = catchAsyncErrors(async (req, res, next) => {
   const token = req.cookies.token;
   const userId = jwt.verify(token, process.env.JWT_SECRET);
   const { title, description, genres, cover, link, author } = req.body;
+ 
   let genresMod = genres.split(",");
+
   const img = await cloudinary.uploader.upload(cover, {
     folder: "Bibli/books",
     width: 200,
     crop: "scale",
   });
-  console.log(userId);
-  console.log(genresMod);
+  
   const book = new Books({
     title,
     description,

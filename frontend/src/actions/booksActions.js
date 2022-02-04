@@ -36,7 +36,7 @@ export const addBook = async (dispatch, data) => {
 export const searchBook = async (dispatch, page, search, genre) => {
   try {
     dispatch({ type: REQUEST_BOOKS });
-    const url = `/api/v1/books?page=${page || 1}${search ? `&${search}` : ""}${
+    const url = `/api/v1/books?page=${page + 1}${search ? `&${search}` : ""}${
       genre.length > 0 ? `&genres=${genre}` : ""
     }`;
     const result = await axios.get(url);
@@ -45,7 +45,7 @@ export const searchBook = async (dispatch, page, search, genre) => {
   } catch (error) {
     dispatch({
       type: REQUEST_BOOKS_FAIL,
-      payload: error.response.data.errorMessage,
+      payload: error.response,
     });
 
     dispatch({ type: CLEAR_ERRORS });

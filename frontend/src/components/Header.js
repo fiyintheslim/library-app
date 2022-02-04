@@ -67,7 +67,6 @@ const Header = ({ user, auth }) => {
             <Link to="/books" className="text-decoration-none nav-link">
               Books
             </Link>
-            <Nav.Link href="#link">Link</Nav.Link>
             <NavDropdown title="" id="basic-nav-dropdown">
               {user && (
                 <>

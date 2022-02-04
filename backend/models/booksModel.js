@@ -27,7 +27,8 @@ const BookSchema = new mongoose.Schema({
   ratings: [
     {
       user: mongoose.ObjectId,
-      rating: Number,
+      title: String,
+      rating: { type: Number, required: true },
       comment: String,
     },
   ],

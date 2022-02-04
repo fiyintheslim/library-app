@@ -22,7 +22,7 @@ const Profile = () => {
             <Image
               src={user.avatar.url}
               roundedCircle={true}
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: "cover", height: "320px", width: "320px" }}
               className="img-fluid"
             />
             <Container

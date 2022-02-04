@@ -14,7 +14,6 @@ const booksReducers = (state = {}, action) => {
     case ADD_BOOK_REQUEST:
       return {
         loading: true,
-        added:false
       };
     case REQUEST_BOOKS_SUCCESS:
       return {

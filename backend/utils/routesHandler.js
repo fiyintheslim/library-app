@@ -18,11 +18,11 @@ class Routes {
     const query = this.req.query;
     const genres = query.genres;
     const arr = genres ? genres.split(",") : undefined;
-    console.log("arr", arr)
+
     this.books = arr
       ? this.books.find({ genres: { $in: arr } })
       : this.books.find();
-    
+
     return this;
   }
   paginate(no) {

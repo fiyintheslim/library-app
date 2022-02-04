@@ -10,7 +10,7 @@ const AddBook = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { error, books, loading } = useSelector((state) => state.books);
+  const { error, books, loading, added } = useSelector((state) => state.books);
 
   const [imgDisp, setImgDisp] = useState("/img/book.svg");
   const [img, setImg] = useState("");
@@ -20,7 +20,7 @@ const AddBook = () => {
     if (error) {
       alert.error(error);
     }
-    if (books) {
+    if (added) {
       alert.success("Books added");
       navigate("/books");
     }
@@ -50,11 +50,13 @@ const AddBook = () => {
       }
     });
     console.log(genres);
-    const { title, description, link } = book;
+    const { title, description, link, author } = book;
     if (!img) {
       return alert.error("Please add book cover image.");
     } else if (!title) {
       return alert.error("Please enter book title");
+    } else if (!author) {
+      return alert.error("Please enter the author.");
     } else if (!link) {
       return alert.error("Please enter google drive link to the book.");
     } else if (!description) {
@@ -68,8 +70,9 @@ const AddBook = () => {
     formData.set("genres", genres);
     formData.set("cover", img);
     formData.set("link", link);
+    formData.set("author", author);
 
-    console.log(book);
+    console.log(formData.get("genres"));
     addBook(dispatch, formData);
   };
   const genres = [
@@ -130,6 +133,19 @@ const AddBook = () => {
               id="bookTitle"
               aria-describedby="nameHelp"
               name="title"
+              onChange={handleInput}
+            />
+          </div>
+          <div className="mb-3 w-100">
+            <label htmlFor="bookTitle" className="form-label">
+              Author
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="bookAuthor"
+              aria-describedby="nameHelp"
+              name="author"
               onChange={handleInput}
             />
           </div>

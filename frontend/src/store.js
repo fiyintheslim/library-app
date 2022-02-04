@@ -4,11 +4,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import userReducer from "./reducers/authReducers";
 import userUpdateReducer from "./reducers/userUpdateReducers";
 import booksReducer from "./reducers/booksReducer";
+import details from "./reducers/bookDetailsReducer";
 
 const reducers = combineReducers({
   auth: userReducer,
   update: userUpdateReducer,
   books: booksReducer,
+  details,
 });
 
 const middlewares = [thunk];

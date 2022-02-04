@@ -10,24 +10,44 @@ import {
   Image,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useSearchParams,
+  useLocation,
+} from "react-router-dom";
 import { logout } from "../actions/userActions";
 import {} from "../actions/booksActions";
 
 const Header = ({ user, auth }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchparams, setSearchParams] = useSearchParams();
   //const { user } = useSelector((state) => state.auth);
   //useEffect(() => {}, [user]);
   const [search, setSearch] = useState("");
+  //regex fror book path
+  const reg = /book/i;
+
   const logoutHandler = async (e) => {
     logout(dispatch);
     navigate("/");
   };
+  useEffect(() => {
+    setSearchParams({});
+    if (reg.test(location.pathname) && search) {
+      setSearchParams({ search });
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     //e.preventDefault();
-    console.log(search);
+    if (!reg.test(location.pathname)) {
+      navigate("/books");
+    } else {
+      setSearchParams({ search });
+    }
   };
 
   return (

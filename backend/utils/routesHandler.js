@@ -2,22 +2,27 @@ class Routes {
   constructor(req, Books) {
     this.req = req;
     this.books = Books;
+
   }
   search() {
-    const keyword = this.req.query.keyword || "";
+    const keyword = this.req.query.search || "";
 
     const result = this.books.find({
       title: { $regex: keyword, $options: "i" },
     });
     this.books = result;
+    
     return this;
   }
   filter() {
     const query = this.req.query;
-    const genres = query.genres || "";
-    const arr = genres.split(",");
-    console.log("category", arr);
-    this.books = this.books.find({ genres: { $in: arr } });
+    const genres = query.genres;
+    const arr = genres ? genres.split(",") : undefined;
+    console.log("arr", arr)
+    this.books = arr
+      ? this.books.find({ genres: { $in: arr } })
+      : this.books.find();
+    
     return this;
   }
   paginate(no) {
@@ -25,7 +30,7 @@ class Routes {
     const skip = no * (page - 1);
 
     this.books = this.books.limit(no).skip(skip);
-
+    
     return this;
   }
 }

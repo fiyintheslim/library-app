@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, Container, Row, Col, Carousel } from "react-bootstrap";
+import MetaData from "../components/MetaData";
 
 const Home = () => {
   const [index, setIndex] = useState(0);
@@ -8,6 +9,7 @@ const Home = () => {
   }
   return (
     <>
+      <MetaData title={"Home"} />
       <Container fluid className=" p-0">
         <Carousel activeIndex={index} onSelect={handleCarousel}>
           <Carousel.Item>

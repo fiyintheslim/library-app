@@ -76,6 +76,14 @@ ReactDOM.render(
             }
           />
           <Route
+            path="/search/:keyword"
+            element={
+              <App>
+                <Books />
+              </App>
+            }
+          />
+          <Route
             path="/details/:id"
             element={
               <App>

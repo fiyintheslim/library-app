@@ -8,23 +8,25 @@ const jwt = require("jsonwebtoken");
 exports.addBook = catchAsyncErrors(async (req, res, next) => {
   const token = req.cookies.token;
   const userId = jwt.verify(token, process.env.JWT_SECRET);
-  const { title, description, genres, cover, link } = req.body;
-
-  // const img = await cloudinary.uploader.upload(cover, {
-  //   folder: "Bibli/books",
-  //   width: 200,
-  //   crop: "scale",
-  // });
+  const { title, description, genres, cover, link, author } = req.body;
+  let genresMod = genres.split(",");
+  const img = await cloudinary.uploader.upload(cover, {
+    folder: "Bibli/books",
+    width: 200,
+    crop: "scale",
+  });
   console.log(userId);
+  console.log(genresMod);
   const book = new Books({
     title,
     description,
-    genres,
+    genres: genresMod,
+    author,
     userId: userId.id,
-    // cover: {
-    //   publicId: img.public_id,
-    //   url: img.secure_url,
-    // },
+    cover: {
+      publicId: img.public_id,
+      url: img.secure_url,
+    },
     link,
   });
   await book.save();
@@ -33,22 +35,28 @@ exports.addBook = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getBooks = catchAsyncErrors(async (req, res, next) => {
-  const paginationCount = 3;
+  const paginationCount = 4;
   const totalBooksCount = await Books.count({});
-  const books = new RoutesHandler(req, Books)
+  const books = new RoutesHandler(req, Books).search().filter();
+
+  books.paginate(paginationCount);
+
+  const query = await books.books;
+  // const count = await length.count({});
+  const bookCount = query.length;
+
+  const count = await new RoutesHandler(req, Books)
     .search()
     .filter()
-    .paginate(paginationCount);
-  const query = await books.books;
-  console.log(query);
+    .books.count({});
 
   res.status(200).json({
     success: true,
     books: query,
-    bookCount: query.length,
+    bookCount,
     paginationCount,
     totalBooksCount,
-    pages: Math.ceil(totalBooksCount / paginationCount),
+    pages: Math.ceil(count / paginationCount),
   });
 });
 

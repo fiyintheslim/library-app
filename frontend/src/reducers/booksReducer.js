@@ -14,13 +14,20 @@ const booksReducers = (state = {}, action) => {
     case ADD_BOOK_REQUEST:
       return {
         loading: true,
+        added:false
       };
     case REQUEST_BOOKS_SUCCESS:
-    case ADD_BOOK_SUCCESS:
       return {
         ...state,
         loading: false,
         books: action.payload,
+        
+      };
+    case ADD_BOOK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        added:true
       };
     case REQUEST_BOOKS_FAIL:
     case ADD_BOOK_FAIL:

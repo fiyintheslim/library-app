@@ -14,6 +14,8 @@ const authenticated = handleAsyncError(async (req, res, next) => {
   if (!id) {
     return next(new ErrorHandler("Invalid token", 400));
   }
+  const user = await User.findById(id.id);
+  req.user = user;
   return next();
 });
 

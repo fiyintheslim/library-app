@@ -17,7 +17,7 @@ const Home = () => {
               className="d-block w-100 img-fluid vh-10"
               src="img/book1.jpg"
               alt="First slide"
-              style={{ height: "380px" }}
+              style={{ height: "400px", objectFit: "cover" }}
             />
             <Carousel.Caption>
               <h3>First slide label</h3>
@@ -29,7 +29,7 @@ const Home = () => {
               className="d-block w-100 img-fluid vh-10"
               src="img/book2.jpg"
               alt="Second slide"
-              style={{ height: "380px" }}
+              style={{ height: "400px", objectFit: "cover" }}
             />
 
             <Carousel.Caption>
@@ -42,7 +42,7 @@ const Home = () => {
               className="d-block w-100 img-fluid"
               src="img/book3.jpg"
               alt="Third slide"
-              style={{ height: "380px" }}
+              style={{ height: "400px", objectFit: "cover" }}
             />
 
             <Carousel.Caption>

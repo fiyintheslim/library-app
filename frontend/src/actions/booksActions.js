@@ -9,6 +9,9 @@ import {
   REQUEST_DETAILS,
   REQUEST_DETAILS_SUCCESS,
   REQUEST_DETAILS_FAIL,
+  ADD_REVIEW_REQUEST,
+  ADD_REVIEW_SUCCESS,
+  ADD_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/booksConstants";
 
@@ -64,6 +67,22 @@ export const bookDetails = async (dispatch, id) => {
       type: REQUEST_DETAILS_FAIL,
       payload: error.response.data.errorMessage,
     });
+
+    dispatch({ type: CLEAR_ERRORS });
+  }
+};
+
+export const addReview = async (dispatch, id, data) => {
+  try {
+    dispatch({ type: ADD_REVIEW_REQUEST });
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+    const res = await axios.post(`/api/v1/review/${id}`, data, config);
+
+    dispatch({ type: ADD_REVIEW_SUCCESS });
+  } catch (error) {
+    dispatch({ type: ADD_REVIEW_FAIL });
 
     dispatch({ type: CLEAR_ERRORS });
   }

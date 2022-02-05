@@ -66,3 +66,34 @@ exports.details = catchAsyncErrors(async (req, res, next) => {
   const book = await Books.findById(id);
   return res.status(200).json({ success: true, book });
 });
+
+exports.addReview = catchAsyncErrors(async (req, res, next) => {
+  const user = req.user.name;
+  const bookId = req.params.id;
+
+  const { title, rating, comment } = req.body;
+
+  const book = await Books.findById(bookId);
+  const filtered = book.ratings.filter(
+    (e) => e.user.toString() === user.toString()
+  );
+  if (filtered[0]) {
+    const updatedReview = book.ratings.map((r) => {
+      if (r.user.toString() === user.toString()) {
+        return { user, title, rating, comment };
+      } else {
+        return r;
+      }
+    });
+    book.ratings = updatedReview;
+    await book.save({ validateBeforeSave: false });
+    return res
+      .status(200)
+      .json({ success: true, message: "updating", updatedReview, book, user });
+  } else {
+    book.ratings.push({ user, title, rating, comment });
+    await book.save({ validateBeforeSave: false });
+
+    return res.status(200).json({ success: true, message: "Review Added" });
+  }
+});

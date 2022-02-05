@@ -2,19 +2,30 @@ import {
   REQUEST_DETAILS,
   REQUEST_DETAILS_SUCCESS,
   REQUEST_DETAILS_FAIL,
+  ADD_REVIEW_REQUEST,
+  ADD_REVIEW_SUCCESS,
+  ADD_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/booksConstants";
 const bookDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case REQUEST_DETAILS:
-      return { loading: true };
+    case ADD_REVIEW_REQUEST:
+      return { ...state, loading: true };
     case REQUEST_DETAILS_SUCCESS:
       return {
         ...state,
         loading: false,
         book: action.payload,
       };
+    case ADD_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+      };
     case REQUEST_DETAILS_FAIL:
+    case ADD_REVIEW_FAIL:
       return {
         ...state,
         loading: false,

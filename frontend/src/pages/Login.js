@@ -32,10 +32,10 @@ const Login = () => {
 
   return (
     <>
-      <Container className="mt-5 h-100">
+      <Container className="mt-5 h-100 d-flex justify-content-center align-items-center">
         <form
           onSubmit={handleSubmit}
-          className="w-100 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+          className="w-md-50 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
         >
           <h5 className="fs-2">Login</h5>
           <div className="mb-3 w-100">

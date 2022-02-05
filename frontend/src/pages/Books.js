@@ -73,7 +73,7 @@ const Books = () => {
                   >
                     <Row>
                       {genres.map((g) => (
-                        <Col lg={12}>
+                        <Col className="col-3 col-lg-12">
                           <div class="form-check col-sm-3">
                             <input
                               className="form-check-input"
@@ -102,24 +102,18 @@ const Books = () => {
                     <Row className="g-2 row-cols-4">
                       {books.books.map((book) => {
                         return (
-                          <Col
-                            className="d-flex justify-content-center"
-                            style={{ width: "15rem" }}
-                          >
+                          <Col className="d-flex justify-content-center col-12 col-lg-3">
                             <Card>
                               <Card.Img
                                 variant="top"
-                                src="holder.js/100px180"
+                                src={book.cover ? book.cover.url : ""}
+                                style={{ height: "50%" }}
                               />
                               <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
                                 <Card.Title className="fs-5">
                                   {book.title}
                                 </Card.Title>
-                                <Card.Text>
-                                  Some quick example text to build on the card
-                                  title and make up the bulk of the card's
-                                  content.
-                                </Card.Text>
+
                                 <Link
                                   to={`/details/${book._id}`}
                                   className="btn-primary btn btn-md"
@@ -160,6 +154,8 @@ const Books = () => {
             activeLinkClassName="active"
             activeClassName="active"
             initialPage={page}
+            disabledLinkClassName="disabled"
+            disabledClassName="disabled"
           />
         ) : null}
       </Container>

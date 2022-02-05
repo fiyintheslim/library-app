@@ -26,10 +26,14 @@ const BookSchema = new mongoose.Schema({
   avgRating: Number,
   ratings: [
     {
-      user: mongoose.ObjectId,
+      user: String,
       title: String,
       rating: { type: Number, required: true },
       comment: String,
+      ratedAt: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
   createdAt: {

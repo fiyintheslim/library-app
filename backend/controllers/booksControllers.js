@@ -86,14 +86,22 @@ exports.addReview = catchAsyncErrors(async (req, res, next) => {
       }
     });
     book.ratings = updatedReview;
-    await book.save({ validateBeforeSave: false });
-    return res
-      .status(200)
-      .json({ success: true, message: "updating", updatedReview, book, user });
   } else {
     book.ratings.push({ user, title, rating, comment });
-    await book.save({ validateBeforeSave: false });
-
-    return res.status(200).json({ success: true, message: "Review Added" });
   }
+  const total = book.ratings.length;
+  const average =
+    book.ratings.reduce((acc, i) => {
+      return acc + i.rating;
+    }, 0) / total;
+  book.avgRating = average;
+  await book.save({ validateBeforeSave: false });
+  return res.status(200).json({ success: true, message: "Review Added" });
+});
+
+exports.myBooks = catchAsyncErrors(async (req, res, next) => {
+  const user = req.user;
+  const myBooks = await Books.find({ userId: user._id });
+  console.log(myBooks);
+  return res.status(200).json({ success: true, myBooks });
 });

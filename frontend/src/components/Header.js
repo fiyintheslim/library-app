@@ -86,7 +86,11 @@ const Header = ({ user, auth }) => {
                       Add Book
                     </Link>
                   </NavDropdown.Item>
-                  <NavDropdown.Item>My books</NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link to="/books/mine" className="text-decoration-none">
+                      My books
+                    </Link>
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     className="text-danger"

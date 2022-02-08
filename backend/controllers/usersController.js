@@ -10,6 +10,9 @@ exports.login = async (req, res, next) => {
   const user = await Users.findOne({ email: req.body.email }).select(
     "+password"
   );
+  if (!user) {
+    return next(new ErrorHandler("Email doesn't exist in the database", 400));
+  }
   const compare = await user.comparePassword(req.body.password);
   console.log(compare);
   if (!compare) {
@@ -79,4 +82,37 @@ exports.changePassword = catchAsyncError(async (req, res, next) => {
   user.save();
 
   return res.status(200).json({ success: true, message: "Password Updated" });
+});
+
+exports.changeProfilePicture = catchAsyncError(async (req, res, next) => {
+  const user = req.user;
+  const img = req.body;
+
+  await cloudinary.uploader.destroy(user.avatar.publicId);
+
+  const response = await cloudinary.uploader.upload(img.img, {
+    folder: "Bibli/avatars",
+    crop: "scale",
+    width: 200,
+  });
+
+  user.avatar = {
+    publicId: response.public_id,
+    url: response.secure_url,
+  };
+  await user.save();
+  return res
+    .status(200)
+    .json({ success: true, message: "Profile updated successfully" });
+});
+
+exports.deleteProfile = catchAsyncError(async (req, res, next) => {
+  const user = req.user;
+  await cloudinary.uploader.destroy(user.avatar.publicId);
+  await user.remove();
+
+  return res
+    .status(200)
+    .cookie("token", null, { expires: new Date(Date.now()) })
+    .json({ success: true, message: "Profile deleted successfully" });
 });

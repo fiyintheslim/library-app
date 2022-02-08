@@ -10,9 +10,9 @@ import {
   REGISTER_USER_FAIL,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  CHANGE_PASSWORD_REQUEST,
-  CHANGE_PASSWORD_SUCCESS,
-  CHANGE_PASSWORD_FAIL,
+  DELETE_PROFILE_REQUEST,
+  DELETE_PROFILE_SUCCESS,
+  DELETE_PROFILE_FAIL,
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
@@ -22,6 +22,7 @@ const userReducer = (state = {}, action) => {
     case LOGIN_USER_REQUEST:
     case REGISTER_USER_REQUEST:
     case LOGOUT_REQUEST:
+    case DELETE_PROFILE_REQUEST:
       return {
         ...state,
         loading: true,
@@ -47,16 +48,21 @@ const userReducer = (state = {}, action) => {
         isAuthenticated: false,
         error: action.payload,
       };
-
-    case CLEAR_ERRORS:
-      return { ...state, error: null };
+    case DELETE_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
     case LOGOUT_SUCCESS:
+    case DELETE_PROFILE_SUCCESS:
       return {
         loading: false,
         user: null,
         isAuthenticated: false,
         message: action.payload,
       };
+    case CLEAR_ERRORS:
+      return { ...state, error: null };
     default:
       return state;
   }

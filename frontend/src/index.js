@@ -12,6 +12,7 @@ import ChangePassword from "./pages/ChangePassword";
 import AddBook from "./pages/AddBook";
 import Books from "./pages/Books";
 import Details from "./pages/Details";
+import MyBooks from "./pages/MyBooks";
 import store from "./store";
 
 ReactDOM.render(
@@ -88,6 +89,14 @@ ReactDOM.render(
             element={
               <App>
                 <Details />
+              </App>
+            }
+          />
+          <Route
+            path="/books/mine"
+            element={
+              <App>
+                <MyBooks />
               </App>
             }
           />

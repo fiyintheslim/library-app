@@ -25,7 +25,6 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "admin"],
     default: "user",
   },
-
   avatar: {
     publicId: {
       type: String,

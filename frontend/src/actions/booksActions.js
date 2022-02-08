@@ -87,3 +87,20 @@ export const addReview = async (dispatch, id, data) => {
     dispatch({ type: CLEAR_ERRORS });
   }
 };
+
+export const myBooks = async (dispatch) => {
+  try {
+    dispatch({ type: REQUEST_BOOKS });
+
+    const res = await axios.get("/api/v1/books/mine");
+
+    dispatch({ type: REQUEST_BOOKS_SUCCESS, payload: res.data.myBooks });
+  } catch (error) {
+    dispatch({
+      type: REQUEST_BOOKS_FAIL,
+      payload: error.response,
+    });
+
+    dispatch({ type: CLEAR_ERRORS });
+  }
+};

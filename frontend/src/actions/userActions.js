@@ -12,6 +12,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
+  DELETE_PROFILE_REQUEST,
+  DELETE_PROFILE_SUCCESS,
+  DELETE_PROFILE_FAIL,
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
@@ -68,4 +71,19 @@ export const logout = async (dispatch) => {
 
   dispatch({ type: LOGOUT_SUCCESS, payload: logout.data.message });
 };
+export const deleteAccount = async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_PROFILE_REQUEST });
 
+    const res = axios.get("/api/v1/delete/me");
+
+    dispatch({ type: DELETE_PROFILE_SUCCESS, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: DELETE_PROFILE_FAIL,
+      payload: err.response.data.errorMessage,
+    });
+
+    dispatch({ type: CLEAR_ERRORS });
+  }
+};

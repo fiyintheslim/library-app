@@ -19,7 +19,9 @@ import StarRatings from "react-star-ratings";
 const Details = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const { book, loading, error } = useSelector((state) => state.details);
+  const { book, loading, error, success } = useSelector(
+    (state) => state.details
+  );
   const { user } = useSelector((state) => state.auth);
 
   const [modal, setModal] = useState(false);
@@ -45,7 +47,7 @@ const Details = () => {
 
   useEffect(() => {
     bookDetails(dispatch, params.id);
-  }, []);
+  }, [success]);
   useEffect(() => {
     if (book) {
       console.log(book);
@@ -71,13 +73,16 @@ const Details = () => {
                 alignItems: "center",
               }}
             >
-              <h3 style={{ color: "#0d6efd" }}>{book.title}</h3>
+              <h3 style={{ color: "#0d6efd", textTransform: "capitalize" }}>
+                {book.title}
+              </h3>
               <div
                 style={{
                   width: "100%",
                   display: "flex",
                   color: "#0d6efd",
                   fontWeight: "700",
+                  textTransform: "capitalize",
                 }}
               >
                 <svg
@@ -97,6 +102,30 @@ const Details = () => {
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>
                 <p>{book.author ? book.author : ""}</p>
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  fontSize: "18px",
+                  color: "#aba9a9",
+                  fontWeight: "800",
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="bi bi-star-fill"
+                  viewBox="0 0 16 16"
+                  style={{
+                    height: "20px",
+                    width: "20px",
+                    fill: "gold",
+                    marginRight: "10px",
+                  }}
+                >
+                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                </svg>
+                <p>{book.avgRating ? book.avgRating : "N/A"}</p>
               </div>
               <div
                 style={{
@@ -130,7 +159,7 @@ const Details = () => {
                   }, "")}
                 </p>
               </div>
-              <div>{book.description}</div>
+              <div className="my-3">{book.description}</div>
               <div
                 style={{
                   display: "flex",
@@ -191,7 +220,7 @@ const Details = () => {
             <Card.Body
               className={`${modalInfo ? "d-block" : "d-none"} overflow-auto`}
             >
-              {book && book.ratings ? (
+              {book && book.ratings[0] ? (
                 <>
                   {book.ratings.map((rating, i) => (
                     <Container key={i}>

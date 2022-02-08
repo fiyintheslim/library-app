@@ -8,6 +8,8 @@ const {
   profile,
   logout,
   changePassword,
+  changeProfilePicture,
+  deleteProfile,
 } = require("../controllers/usersController");
 
 //Routes
@@ -16,6 +18,8 @@ router.route("/register").post(signUp);
 router.route("/me").get(isAuthenticated, profile);
 router.route("/logout").get(logout);
 router.route("/password/update").put(isAuthenticated, changePassword);
+router.route("/picture/update").put(isAuthenticated, changeProfilePicture);
+router.route("/delete/me").get(isAuthenticated, deleteProfile);
 
 
 module.exports = router;

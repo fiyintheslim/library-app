@@ -16,9 +16,6 @@ const Books = () => {
   const [genre, setGenre] = useState([]);
 
   useEffect(() => {
-    console.log("genre", genre);
-    const cat = document.getElementsByName("genre");
-
     searchBook(dispatch, page, location.search.replace("?", ""), genre);
   }, [location, genre, page]);
 
@@ -58,11 +55,11 @@ const Books = () => {
 
   return (
     <>
-      <Container className="">
+      <Container>
         {books ? (
           <>
             <h1 className="fs-3">Books</h1>
-            <Container fluid>
+            <Container fluid className="p-0 m-0">
               <Row>
                 <Col lg={2} className="">
                   <h2 className="fs-5">filters</h2>
@@ -97,13 +94,13 @@ const Books = () => {
                     </Row>
                   </Container>
                 </Col>
-                <Col lg={10} className="">
-                  <Container fluid>
-                    <Row className="g-2 row-cols-4">
+                <Col lg={10} className="p-0 m-0">
+                  <Container fluid className="p-0 m-0">
+                    <Row className="g-2 row-cols-4 p-0 m-0">
                       {books.books.map((book) => {
                         return (
                           <Col className="d-flex justify-content-center col-12 col-lg-3">
-                            <Card>
+                            <Card style={{ height: "350px" }}>
                               <Card.Img
                                 variant="top"
                                 src={book.cover ? book.cover.url : ""}

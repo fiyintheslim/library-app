@@ -22,7 +22,6 @@ const BookSchema = new mongoose.Schema({
   genres: { type: [String], required: true },
   link: String,
   userId: mongoose.ObjectId,
-  reviewCount: Number,
   avgRating: Number,
   ratings: [
     {

@@ -78,3 +78,6 @@ a{
 .bibli-card{
   
 }
+.disabled{
+  pointer-events:none;
+}

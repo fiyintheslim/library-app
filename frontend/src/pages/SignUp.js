@@ -19,7 +19,7 @@ const SignUp = () => {
   useEffect(() => {
     console.log(user);
     if (error) {
-      alert.error(error.errorMessage);
+      alert.error("An error error occurred while signing up.");
     }
     if (success) {
       navigate("/");

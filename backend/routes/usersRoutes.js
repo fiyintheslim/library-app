@@ -10,6 +10,7 @@ const {
   changePassword,
   changeProfilePicture,
   deleteProfile,
+  passwordReset,
 } = require("../controllers/usersController");
 
 //Routes
@@ -20,6 +21,7 @@ router.route("/logout").get(logout);
 router.route("/password/update").put(isAuthenticated, changePassword);
 router.route("/picture/update").put(isAuthenticated, changeProfilePicture);
 router.route("/delete/me").get(isAuthenticated, deleteProfile);
+router.route("/password/reset").post(passwordReset);
 
 
 module.exports = router;

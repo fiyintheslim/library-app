@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require("cloudinary").v2;
 //parameters message, statuscode
 const ErrorHandler = require("../utils/ErrorHandler");
+const sendMail = require("../utils/sendMail");
 
 exports.login = async (req, res, next) => {
   const user = await Users.findOne({ email: req.body.email }).select(
@@ -115,4 +116,19 @@ exports.deleteProfile = catchAsyncError(async (req, res, next) => {
     .status(200)
     .cookie("token", null, { expires: new Date(Date.now()) })
     .json({ success: true, message: "Profile deleted successfully" });
+});
+
+exports.passwordReset = catchAsyncError(async (req, res, next) => {
+  const email = req.body.email;
+
+  const exists = await Users.findOne({ email });
+  if (!exists) {
+    return next(new ErrorHandler("Email doesn't exist", 404));
+  }
+
+  const token = exists.passwordReset();
+
+  return res
+    .status(200)
+    .json({ success: true, message: "Reset token sent to your email" });
 });

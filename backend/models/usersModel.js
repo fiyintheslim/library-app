@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -66,6 +67,21 @@ userSchema.methods.sendToken = async function () {
     expiresIn: process.env.JWT_EXPIRES,
   });
   return token;
+};
+
+userSchema.methods.passwordReset = async function () {
+  const token = crypto.randomBytes(32).toString("hex");
+
+  const hashedToken = await bcrypt.hash(token, 10);
+  const tokenExpires = Date.now() + 30 * 60 * 1000;
+  console.log("expires", tokenExpires);
+  //const user = new this();
+  this.passwordResetToken = hashedToken;
+  this.passwordResetTokenExpires = tokenExpires;
+
+  await this.save();
+
+  return hashedToken;
 };
 
 module.exports = mongoose.model("Users", userSchema);

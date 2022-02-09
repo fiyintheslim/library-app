@@ -74,7 +74,7 @@ userSchema.methods.passwordReset = async function () {
 
   const hashedToken = await bcrypt.hash(token, 10);
   const tokenExpires = Date.now() + 30 * 60 * 1000;
-  console.log("expires", tokenExpires);
+
   //const user = new this();
   this.passwordResetToken = hashedToken;
   this.passwordResetTokenExpires = tokenExpires;

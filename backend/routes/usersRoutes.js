@@ -11,6 +11,7 @@ const {
   changeProfilePicture,
   deleteProfile,
   passwordReset,
+  handlePasswordReset,
 } = require("../controllers/usersController");
 
 //Routes
@@ -22,6 +23,7 @@ router.route("/password/update").put(isAuthenticated, changePassword);
 router.route("/picture/update").put(isAuthenticated, changeProfilePicture);
 router.route("/delete/me").get(isAuthenticated, deleteProfile);
 router.route("/password/reset").post(passwordReset);
+router.route("/password/reset/:token").get(handlePasswordReset);
 
 
 module.exports = router;

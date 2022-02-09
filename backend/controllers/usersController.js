@@ -127,8 +127,14 @@ exports.passwordReset = catchAsyncError(async (req, res, next) => {
   }
 
   const token = exists.passwordReset();
+  console.log(req.header("host"));
+  const resetUrl = `http://${req.header(
+    "host"
+  )}/api/v1/reset/password/${token}`;
 
   return res
     .status(200)
     .json({ success: true, message: "Reset token sent to your email" });
 });
+
+exports.handlePasswordReset = catchAsyncError(async (req, res, next) => {});

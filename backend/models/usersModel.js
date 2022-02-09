@@ -81,7 +81,7 @@ userSchema.methods.passwordReset = async function () {
 
   await this.save();
 
-  return hashedToken;
+  return token;
 };
 
 module.exports = mongoose.model("Users", userSchema);

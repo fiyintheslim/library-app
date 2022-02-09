@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 //parameters message, statuscode
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendMail = require("../utils/sendMail");
+const bcrypt = require("bcrypt");
 
 exports.login = async (req, res, next) => {
   const user = await Users.findOne({ email: req.body.email }).select(
@@ -126,15 +127,26 @@ exports.passwordReset = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Email doesn't exist", 404));
   }
 
-  const token = exists.passwordReset();
-  console.log(req.header("host"));
+  const token = await exists.passwordReset();
+
   const resetUrl = `http://${req.header(
     "host"
   )}/api/v1/reset/password/${token}`;
+  const emailConfig = {
+    from: "fiyintests@gmail.com",
+    to: email,
+    subject: "Reset Email",
+    html: `<a>${resetUrl}</a>`,
+  };
+  sendMail.sendMail(emailConfig);
 
   return res
     .status(200)
     .json({ success: true, message: "Reset token sent to your email" });
 });
 
-exports.handlePasswordReset = catchAsyncError(async (req, res, next) => {});
+exports.handlePasswordReset = catchAsyncError(async (req, res, next) => {
+  const token = req.params.token;
+
+  const compare = await bcrypt.compare(token);
+});

@@ -96,11 +96,12 @@ const AddBook = () => {
     <>
       <Container
         fluid="md"
-        className="d-flex justify-content-center mt-5 h-100"
+        className="d-flex justify-content-center my-5 h-100"
       >
         <form
           onSubmit={(e) => submit(e)}
-          className="w-100 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+          className="mx-0 mx-sm-2 mx-md-5 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+          style={{ maxWidth: "700px" }}
         >
           <h5 className="fs-2">Add Book</h5>
 

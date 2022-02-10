@@ -129,15 +129,14 @@ exports.passwordReset = catchAsyncError(async (req, res, next) => {
 
   const token = await exists.passwordReset();
 
-  const resetUrl = `http://${req.header(
-    "host"
-  )}/api/v1/reset/password/${token}`;
+  const resetUrl = `${process.env.PROTOCOL}://${req.host}:${process.env.FRONTEND_PORT}/password/reset/${exists._id}/${token}`;
   const emailConfig = {
     from: "fiyintests@gmail.com",
     to: email,
     subject: "Reset Email",
-    html: `<a>${resetUrl}</a>`,
+    html: `<div>Click this link to <a href=${resetUrl}>Reset Bibli Password</a><div>`,
   };
+  console.log(resetUrl);
   sendMail.sendMail(emailConfig);
 
   return res
@@ -146,7 +145,29 @@ exports.passwordReset = catchAsyncError(async (req, res, next) => {
 });
 
 exports.handlePasswordReset = catchAsyncError(async (req, res, next) => {
+  const id = req.params.id;
   const token = req.params.token;
+  const password = req.body.password;
 
-  const compare = await bcrypt.compare(token);
+  const user = await Users.findById(id).select("+password");
+  const now = Date.now();
+  if (now > user.passwordResetTokenExpires) {
+    user.passwordResetToken = null;
+    user.passwordResetTokenExpires = null;
+    await user.save();
+    return next(new ErrorHandler("Reset token has expired", 400));
+  }
+
+  const compare = await bcrypt.compare(token, user.passwordResetToken);
+  if (!compare) {
+    return next(new ErrorHandler("Invalid reset token.", 400));
+  }
+  user.passwordResetToken = null;
+  user.passwordResetTokenExpires = null;
+  user.password = password;
+  await user.save();
+
+  return res
+    .status(200)
+    .json({ success: true, message: "Password reset successfully." });
 });

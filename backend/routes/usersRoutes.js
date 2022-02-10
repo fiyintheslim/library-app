@@ -23,7 +23,7 @@ router.route("/password/update").put(isAuthenticated, changePassword);
 router.route("/picture/update").put(isAuthenticated, changeProfilePicture);
 router.route("/delete/me").get(isAuthenticated, deleteProfile);
 router.route("/password/reset").post(passwordReset);
-router.route("/password/reset/:token").get(handlePasswordReset);
+router.route("/password/reset/:id/:token").post(handlePasswordReset);
 
 
 module.exports = router;

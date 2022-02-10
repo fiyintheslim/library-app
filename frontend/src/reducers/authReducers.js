@@ -24,7 +24,6 @@ const userReducer = (state = {}, action) => {
     case LOGOUT_REQUEST:
     case DELETE_PROFILE_REQUEST:
       return {
-        ...state,
         loading: true,
       };
     case LOAD_USER_SUCCESS:
@@ -61,6 +60,7 @@ const userReducer = (state = {}, action) => {
         isAuthenticated: false,
         message: action.payload,
       };
+
     case CLEAR_ERRORS:
       return { ...state, error: null };
     default:

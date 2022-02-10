@@ -13,6 +13,8 @@ import AddBook from "./pages/AddBook";
 import Books from "./pages/Books";
 import Details from "./pages/Details";
 import MyBooks from "./pages/MyBooks";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import store from "./store";
 
 ReactDOM.render(
@@ -97,6 +99,22 @@ ReactDOM.render(
             element={
               <App>
                 <MyBooks />
+              </App>
+            }
+          />
+          <Route
+            path="/password/forgot"
+            element={
+              <App>
+                <ForgotPassword />
+              </App>
+            }
+          />
+          <Route
+            path="/password/reset/:id/:token"
+            element={
+              <App>
+                <ResetPassword />
               </App>
             }
           />

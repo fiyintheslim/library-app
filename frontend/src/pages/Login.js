@@ -32,10 +32,11 @@ const Login = () => {
 
   return (
     <>
-      <Container className="mt-5 h-100 d-flex justify-content-center align-items-center">
+      <Container className="my-5 h-100 d-flex justify-content-center align-items-center">
         <form
           onSubmit={handleSubmit}
-          className="w-md-50 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+          className="w-100 mx-1 mx-md-5 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+          style={{ maxWidth: "700px" }}
         >
           <h5 className="fs-2">Login</h5>
           <div className="mb-3 w-100">
@@ -72,8 +73,12 @@ const Login = () => {
           >
             Submit
           </button>
-          <div className="d-flex justify-content-evenly">
+          <div
+            style={{ fontStyle: "italic" }}
+            className="w-75 my-2 d-flex justify-content-evenly"
+          >
             <Link to="/register">Sign up</Link>
+            <Link to="/password/forgot">Forgot password</Link>
           </div>
         </form>
       </Container>

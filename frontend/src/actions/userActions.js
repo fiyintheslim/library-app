@@ -15,6 +15,12 @@ import {
   DELETE_PROFILE_REQUEST,
   DELETE_PROFILE_SUCCESS,
   DELETE_PROFILE_FAIL,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
@@ -86,4 +92,51 @@ export const deleteAccount = async (dispatch) => {
 
     dispatch({ type: CLEAR_ERRORS });
   }
+};
+export const forgotPassword = async (dispatch, password) => {
+  try {
+    dispatch({ type: FORGOT_PASSWORD_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.post("/api/v1/password/reset", password, config);
+
+    dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: FORGOT_PASSWORD_FAIL,
+      payload: err.response.data.errorMessage,
+    });
+    dispatch({ type: CLEAR_ERRORS });
+  }
+};
+export const resetPasssword = async (dispatch, det, form) => {
+  try {
+    dispatch({ type: RESET_PASSWORD_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await axios.post(
+      `/api/v1/password/reset/${det.id}/${det.token}`,
+      form,
+      config
+    );
+
+    dispatch({ type: RESET_PASSWORD_SUCCESS, payload: res.data });
+  } catch (error) {
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload: error.response.data.errorMessage,
+    });
+    dispatch({ type: CLEAR_ERRORS });
+  }
+};
+export const clear = (dispatch) => {
+  dispatch({ type: "CLEAR" });
 };

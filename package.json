@@ -10,8 +10,8 @@
     "install-client": "cd frontend && npm i",
     "heroku-postbuild": "npm run build && npm run install-client",
     "server": "npm run prod",
-    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
+    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix ../frontend\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix ../frontend\""
   },
   "author": "Fiyin",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
     "cloudinary": "^1.28.1",
+    "concurrently": "^7.0.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
@@ -29,5 +30,8 @@
     "react-helmet": "^6.1.0",
     "react-paginate": "^8.1.0",
     "validator": "^13.7.0"
+  },
+  "engines": {
+    "node": "16.13.1"
   }
 }

@@ -80,4 +80,9 @@ a{
 }
 .disabled{
   pointer-events:none;
+  color: grey;
+}
+ol li{
+  text-align:left;
+  font-size:12px;
 }

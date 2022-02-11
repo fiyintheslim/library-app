@@ -4,9 +4,14 @@ const sendError = require("./middlewares/sendError");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require('express-fileupload')
+const path = require("path");
 
 const app = express();
-
+//frontend
+app.use(express.static(path.resolve(__dirname, "../frontend/build")));
+app.use("*", (req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
+});
 //app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))

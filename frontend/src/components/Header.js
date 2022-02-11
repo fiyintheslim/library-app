@@ -19,12 +19,12 @@ import {
 import { logout } from "../actions/userActions";
 import {} from "../actions/booksActions";
 
-const Header = ({ user, auth }) => {
+const Header = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchparams, setSearchParams] = useSearchParams();
-  //const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   //useEffect(() => {}, [user]);
   const [search, setSearch] = useState("");
   //regex fror book path
@@ -39,7 +39,7 @@ const Header = ({ user, auth }) => {
     if (reg.test(location.pathname) && search) {
       setSearchParams({ search });
     }
-  }, [navigate]);
+  }, [navigate, user]);
 
   const handleSubmit = (e) => {
     //e.preventDefault();
@@ -71,29 +71,39 @@ const Header = ({ user, auth }) => {
               {user && (
                 <>
                   <NavDropdown.Item>
-                    <Link to="/me" className="text-decoration-none">
+                    <Link
+                      to="/me"
+                      className="d-block w-100 text-decoration-none"
+                    >
+                      Profile
                       <Image
                         src={user.avatar.url}
-                        roundedCircle={true}
-                        style={{ width: "30px", height: "30px" }}
+                        rounded={true}
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          marginLeft: "10px",
+                        }}
                         className="me-10"
                       />
-                      Profile
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>
-                    <Link to="/add" className="text-decoration-none">
+                    <Link to="/add" className="d-block text-decoration-none">
                       Add Book
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>
-                    <Link to="/books/mine" className="text-decoration-none">
+                    <Link
+                      to="/books/mine"
+                      className="d-block text-decoration-none"
+                    >
                       My books
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
-                    className="text-danger"
+                    className="text-danger d-block"
                     onClick={logoutHandler}
                   >
                     Logout
@@ -103,7 +113,9 @@ const Header = ({ user, auth }) => {
               {!user && (
                 <>
                   <NavDropdown.Item>
-                    <Link to="/login">Login</Link>
+                    <Link className="d-block" to="/login">
+                      Login
+                    </Link>
                   </NavDropdown.Item>
                 </>
               )}

@@ -32,7 +32,7 @@ export const login = async (dispatch, data) => {
     };
 
     const user = await axios.post("/api/v1/login", data, options);
-    dispatch({ type: LOGIN_USER_SUCCESS, payload: user.data.user });
+    dispatch({ type: LOGIN_USER_SUCCESS, payload: user.data });
   } catch (err) {
     dispatch({
       type: LOGIN_USER_FAIL,

@@ -6,11 +6,13 @@ import userUpdateReducer from "./reducers/userUpdateReducers";
 import booksReducer from "./reducers/booksReducer";
 import details from "./reducers/bookDetailsReducer";
 import forgotPassword from "./reducers/resetPasswordReducer";
+import myBooks from "./reducers/myBooksReducer";
 
 const reducers = combineReducers({
   auth: userReducer,
   update: userUpdateReducer,
   books: booksReducer,
+  myBooks,
   details,
   forgotPassword,
 });

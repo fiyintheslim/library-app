@@ -12,6 +12,13 @@ import {
   ADD_REVIEW_REQUEST,
   ADD_REVIEW_SUCCESS,
   ADD_REVIEW_FAIL,
+  MY_BOOKS_REQUEST,
+  MY_BOOKS_SUCCESS,
+  MY_BOOKS_FAIL,
+  DELETE_BOOK_REQUEST,
+  DELETE_BOOK_SUCCESS,
+  DELETE_BOOK_FAIL,
+  CLEAR_MESSAGE,
   CLEAR_ERRORS,
 } from "../constants/booksConstants";
 
@@ -90,15 +97,33 @@ export const addReview = async (dispatch, id, data) => {
 
 export const myBooks = async (dispatch) => {
   try {
-    dispatch({ type: REQUEST_BOOKS });
+    dispatch({ type: MY_BOOKS_REQUEST });
 
     const res = await axios.get("/api/v1/books/mine");
 
-    dispatch({ type: REQUEST_BOOKS_SUCCESS, payload: res.data.myBooks });
+    dispatch({ type: MY_BOOKS_SUCCESS, payload: res.data.myBooks });
   } catch (error) {
     dispatch({
-      type: REQUEST_BOOKS_FAIL,
-      payload: error.response,
+      type: MY_BOOKS_FAIL,
+      payload: error.response.data,
+    });
+
+    dispatch({ type: CLEAR_ERRORS });
+  }
+};
+
+export const deleteBook = async (dispatch, id) => {
+  try {
+    dispatch({ type: DELETE_BOOK_REQUEST });
+
+    const res = await axios.get(`/api/v1/delete/book/${id}`);
+
+    dispatch({ type: DELETE_BOOK_SUCCESS, payload: res.data.message });
+    dispatch({ type: CLEAR_MESSAGE });
+  } catch (error) {
+    dispatch({
+      type: DELETE_BOOK_FAIL,
+      payload: error.response.data,
     });
 
     dispatch({ type: CLEAR_ERRORS });

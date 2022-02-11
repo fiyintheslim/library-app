@@ -1,12 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Card, Container, Row, Col, Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import MetaData from "../components/MetaData";
 
 const Home = () => {
   const [index, setIndex] = useState(0);
+  const [latest, setLatest] = useState([]);
+  const [rated, setRated] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
   function handleCarousel(ind, e) {
     setIndex(ind);
   }
+  const loadLatest = async () => {
+    const res = await axios.get("/api/v1/latest");
+
+    setLatest(res.data.latestBooks);
+  };
+  const highestRated = async () => {
+    const res = await axios.get("/api/v1/rated");
+
+    setRated(res.data.rated);
+  };
+  useEffect(() => {
+    if (rated.length <= 0 || latest.length <= 0) {
+      loadLatest();
+      highestRated();
+    }
+  }, [latest, rated]);
   return (
     <>
       <MetaData title={"Home"} />
@@ -19,10 +42,6 @@ const Home = () => {
               alt="First slide"
               style={{ height: "400px", objectFit: "cover" }}
             />
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -31,11 +50,6 @@ const Home = () => {
               alt="Second slide"
               style={{ height: "400px", objectFit: "cover" }}
             />
-
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -44,17 +58,10 @@ const Home = () => {
               alt="Third slide"
               style={{ height: "400px", objectFit: "cover" }}
             />
-
-            <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
-            </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
       </Container>
-      <Container className="mt-5 text-light mb-5">
+      <Container className="my-2 text-light mb-5">
         <Row className=" gy-2">
           <Col lg className="mg-1">
             <Card className="d-flex flex-row align-middle bg-secondary p-3 rounded shadow-sm">
@@ -122,6 +129,80 @@ const Home = () => {
             </Card>
           </Col>
         </Row>
+      </Container>
+      <Container className="my-2">
+        <h1>Latest</h1>
+        {latest && latest.length > 0 ? (
+          <Row>
+            {latest.map((book, i) => {
+              return (
+                <Col
+                  className="d-flex justify-content-center col-12 col-lg-3"
+                  key={book._id}
+                >
+                  <Card style={{ height: "350px", width: "100%" }}>
+                    <Card.Img
+                      variant="top"
+                      src={book.cover ? book.cover.url : ""}
+                      style={{ height: "50%" }}
+                    />
+                    <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
+                      <Card.Title className="fs-5">{book.title}</Card.Title>
+
+                      <Link
+                        to={`/details/${book._id}`}
+                        className="btn-primary btn btn-md"
+                      >
+                        Details
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        ) : (
+          <div>
+            <p>Problem loading latest books</p>
+          </div>
+        )}
+      </Container>
+      <Container className="my-2">
+        <h1>Top Rated</h1>
+        {rated && rated.length > 0 ? (
+          <Row>
+            {rated.map((book, i) => {
+              return (
+                <Col
+                  className="d-flex justify-content-center col-12 col-lg-3"
+                  key={book._id}
+                >
+                  <Card style={{ height: "350px", width: "100%" }}>
+                    <Card.Img
+                      variant="top"
+                      src={book.cover ? book.cover.url : ""}
+                      style={{ height: "50%" }}
+                    />
+                    <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
+                      <Card.Title className="fs-5">{book.title}</Card.Title>
+
+                      <Link
+                        to={`/details/${book._id}`}
+                        className="btn-primary btn btn-md"
+                      >
+                        Details
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        ) : (
+          <div>
+            <p>Problem loading Top rated books</p>
+          </div>
+        )}
       </Container>
     </>
   );

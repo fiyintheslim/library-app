@@ -5,10 +5,12 @@ import { useAlert } from "react-alert";
 import { Link, useMatch, useLocation } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { searchBook } from "../actions/booksActions";
+import MetaData from "../components/MetaData";
 
 const Books = () => {
   const { loading, error, books } = useSelector((state) => state.books);
   const dispatch = useDispatch();
+  const alert = useAlert();
   //const match = useMatch();
   const location = useLocation();
 
@@ -16,6 +18,9 @@ const Books = () => {
   const [genre, setGenre] = useState([]);
 
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+    }
     searchBook(dispatch, page, location.search.replace("?", ""), genre);
   }, [location, genre, page]);
 
@@ -55,22 +60,23 @@ const Books = () => {
 
   return (
     <>
-      <Container>
-        {books ? (
+      <MetaData title={"Books"} />
+      <Container className="my-3">
+        {!loading && books ? (
           <>
             <h1 className="fs-3">Books</h1>
             <Container fluid className="p-0 m-0">
               <Row>
                 <Col lg={2} className="">
-                  <h2 className="fs-5">filters</h2>
+                  <h2 className="fs-5">Filter</h2>
                   <Container
                     className="mb-2"
                     fluid
                     style={{ padding: "0px", margin: "0px" }}
                   >
                     <Row>
-                      {genres.map((g) => (
-                        <Col className="col-3 col-lg-12">
+                      {genres.map((g, i) => (
+                        <Col className="col-3 col-lg-12" key={i}>
                           <div class="form-check col-sm-3">
                             <input
                               className="form-check-input"
@@ -99,8 +105,11 @@ const Books = () => {
                     <Row className="g-2 row-cols-4 p-0 m-0">
                       {books.books.map((book) => {
                         return (
-                          <Col className="d-flex justify-content-center col-12 col-lg-3">
-                            <Card style={{ height: "350px" }}>
+                          <Col
+                            className="d-flex justify-content-center col-12 col-lg-3"
+                            key={book._id}
+                          >
+                            <Card style={{ height: "350px", width: "100%" }}>
                               <Card.Img
                                 variant="top"
                                 src={book.cover ? book.cover.url : ""}

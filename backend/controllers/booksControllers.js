@@ -36,7 +36,7 @@ exports.addBook = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getBooks = catchAsyncErrors(async (req, res, next) => {
-  const paginationCount = 4;
+  const paginationCount = 10;
   const totalBooksCount = await Books.count({});
   const books = new RoutesHandler(req, Books).search().filter();
 
@@ -102,6 +102,25 @@ exports.addReview = catchAsyncErrors(async (req, res, next) => {
 exports.myBooks = catchAsyncErrors(async (req, res, next) => {
   const user = req.user;
   const myBooks = await Books.find({ userId: user._id });
-  console.log(myBooks);
+
   return res.status(200).json({ success: true, myBooks });
+});
+
+exports.deleteBook = catchAsyncErrors(async (req, res, next) => {
+  const id = req.params.id;
+  await Books.findByIdAndDelete(id);
+
+  return res.status(200).json({ success: true, message: "Book deleted" });
+});
+
+exports.latestBooks = catchAsyncErrors(async (req, res, next) => {
+  const latestBooks = await Books.find({}).sort({ createdAt: "desc" }).limit(4);
+  return res.status(200).json({ success: true, latestBooks });
+});
+
+exports.ratedBooks = catchAsyncErrors(async (req, res, next) => {
+  const rated = await Books.find({ avgRating: { $gt: 0 } })
+    .sort({ avgRating: "desc" })
+    .limit(4);
+  return res.status(200).json({ success: true, rated });
 });

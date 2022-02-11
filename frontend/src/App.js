@@ -24,16 +24,23 @@ function App({ children }) {
     offset: "30px",
   };
   useEffect(() => {
-    // if (error) {
-    //   alert.error(error);
-    // }
+    if (error) {
+      //alert.error(error);
+    }
     loadUser(dispatch);
   }, []);
   return (
     <>
       <Provider template={Template} {...options}>
         <Header user={user} auth={isAuthenticated} />
-        <div style={{ minHeight: "80vh" }}>
+        <div
+          style={{
+            minHeight: "80vh",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           {loading ? (
             <Container className="w-100 h-100 d-flex justify-content-center align-items-center">
               <Spinner animation="border" variant="primary" />

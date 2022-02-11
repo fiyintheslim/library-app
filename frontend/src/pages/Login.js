@@ -20,6 +20,7 @@ const Login = () => {
     }
     if (isAuthenticated) {
       navigate("/");
+      alert.success(`User logged in.`);
     }
   }, [loading, error, isAuthenticated]);
   const handleSubmit = (e) => {

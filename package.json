@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "SET NODE_ENV=DEVELOPMENT && nodemon ./backend/server.js",
-    "prod": "SET NODE_ENV=PRODUCTION& node ./backend/server.js",
+    "prod": "node ./backend/server.js",
     "build": "npm i",
     "install-client": "cd frontend && npm i",
     "heroku-postbuild": "npm run build && npm run install-client",

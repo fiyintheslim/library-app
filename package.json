@@ -9,7 +9,9 @@
     "build": "npm i",
     "install-client": "cd frontend && npm i",
     "heroku-postbuild": "npm run build && npm run install-client",
-    "server": "npm run prod"
+    "server": "npm run prod",
+    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
   },
   "author": "Fiyin",
   "license": "ISC",

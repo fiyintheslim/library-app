@@ -63,7 +63,8 @@ const SignUp = () => {
       >
         <form
           onSubmit={(e) => submit(e)}
-          className="w-100 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+          className="w-100 w-sm-50 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border my-3 border-2"
+          style={{ maxWidth: "700px" }}
         >
           <h5 className="fs-2">Register</h5>
           <img

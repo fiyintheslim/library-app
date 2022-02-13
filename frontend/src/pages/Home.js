@@ -133,7 +133,7 @@ const Home = () => {
       <Container className="my-2">
         <h1>Latest</h1>
         {latest && latest.length > 0 ? (
-          <Row>
+          <Row className="bg-secondary p-3 rounded">
             {latest.map((book, i) => {
               return (
                 <Col
@@ -144,10 +144,15 @@ const Home = () => {
                     <Card.Img
                       variant="top"
                       src={book.cover ? book.cover.url : ""}
-                      style={{ height: "50%" }}
+                      style={{ height: "72%" }}
                     />
                     <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
-                      <Card.Title className="fs-5">{book.title}</Card.Title>
+                      <Card.Title
+                        className="fs-5 my-card-title"
+                        title={book.title}
+                      >
+                        {book.title}
+                      </Card.Title>
 
                       <Link
                         to={`/details/${book._id}`}
@@ -162,7 +167,10 @@ const Home = () => {
             })}
           </Row>
         ) : (
-          <div>
+          <div
+            className="bg-secondary p-3 rounded d-flex justify-content-center align-items-center fs-3"
+            style={{ height: "400px", color: "rgba(256, 256, 256, 0.8)" }}
+          >
             <p>Problem loading latest books</p>
           </div>
         )}
@@ -170,7 +178,7 @@ const Home = () => {
       <Container className="my-2">
         <h1>Top Rated</h1>
         {rated && rated.length > 0 ? (
-          <Row>
+          <Row className="bg-secondary p-3 rounded">
             {rated.map((book, i) => {
               return (
                 <Col
@@ -184,7 +192,12 @@ const Home = () => {
                       style={{ height: "50%" }}
                     />
                     <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
-                      <Card.Title className="fs-5">{book.title}</Card.Title>
+                      <Card.Title
+                        className="fs-5 my-card-title"
+                        title={book.title}
+                      >
+                        {book.title}
+                      </Card.Title>
 
                       <Link
                         to={`/details/${book._id}`}
@@ -199,7 +212,10 @@ const Home = () => {
             })}
           </Row>
         ) : (
-          <div>
+          <div
+            className="bg-secondary p-3 rounded d-flex justify-content-center align-items-center fs-3"
+            style={{ height: "400px", color: "rgba(256, 256, 256, 0.8)" }}
+          >
             <p>Problem loading Top rated books</p>
           </div>
         )}

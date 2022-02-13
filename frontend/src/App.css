@@ -86,3 +86,8 @@ ol li{
   text-align:left;
   font-size:12px;
 }
+.my-card-title{
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;}

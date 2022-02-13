@@ -30,12 +30,19 @@ const SignUp = () => {
     if (e.target.name === "avatar") {
       console.log("avatar", e.target);
       const file = e.target.files[0];
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        setImgDisp(fileReader.result);
-        setImg(fileReader.result);
-      };
+      const size = Math.round(file.size / 1024);
+      console.log("size", size);
+      if (size > 1024) {
+        file.value = "";
+        return alert.error("Image larger than 1mb");
+      } else {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          setImgDisp(fileReader.result);
+          setImg(fileReader.result);
+        };
+      }
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
       console.log("not avatar", user);
@@ -44,9 +51,19 @@ const SignUp = () => {
   const submit = (e) => {
     e.preventDefault();
 
-    if (user.password !== user.confirmPassword) {
+    if (!user.name) {
+      return alert.error("Please enter your username");
+    }
+    if (!user.email) {
+      return alert.error("Please enter email.");
+    }
+    if (user.password && user.password !== user.confirmPassword) {
       return alert.error("Confirm password");
     }
+    if (!img) {
+      return alert.error("Choose appropriate avatar.");
+    }
+
     const formData = new FormData();
     formData.set("name", user.name);
     formData.set("email", user.email);

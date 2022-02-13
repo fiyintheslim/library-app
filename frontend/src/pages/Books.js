@@ -101,38 +101,49 @@ const Books = () => {
                   </Container>
                 </Col>
                 <Col lg={10} className="p-0 m-0">
-                  <Container fluid className="p-0 m-0">
-                    <Row className="g-2 row-cols-4 p-0 m-0">
-                      {books.books.map((book) => {
-                        return (
-                          <Col
-                            className="d-flex justify-content-center col-12 col-lg-3"
-                            key={book._id}
-                          >
-                            <Card style={{ height: "350px", width: "100%" }}>
-                              <Card.Img
-                                variant="top"
-                                src={book.cover ? book.cover.url : ""}
-                                style={{ height: "50%" }}
-                              />
-                              <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
-                                <Card.Title className="fs-5">
-                                  {book.title}
-                                </Card.Title>
+                  {books.length > 0 ? (
+                    <Container fluid className="p-0 m-0">
+                      <Row className="g-2 row-cols-4 p-0 m-0">
+                        {books.books.map((book) => {
+                          return (
+                            <Col
+                              className="d-flex justify-content-center col-12 col-lg-3"
+                              key={book._id}
+                            >
+                              <Card style={{ height: "350px", width: "100%" }}>
+                                <Card.Img
+                                  variant="top"
+                                  src={book.cover ? book.cover.url : ""}
+                                  style={{ height: "72%" }}
+                                />
+                                <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
+                                  <Card.Title
+                                    className="fs-5 my-card-title"
+                                    title={book.title}
+                                  >
+                                    {book.title}
+                                  </Card.Title>
 
-                                <Link
-                                  to={`/details/${book._id}`}
-                                  className="btn-primary btn btn-md"
-                                >
-                                  Details
-                                </Link>
-                              </Card.Body>
-                            </Card>
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  </Container>
+                                  <Link
+                                    to={`/details/${book._id}`}
+                                    className="btn-primary btn btn-md"
+                                  >
+                                    Details
+                                  </Link>
+                                </Card.Body>
+                              </Card>
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    </Container>
+                  ) : (
+                    <Container>
+                      <p className="fs-4">
+                        Books aren't available at the moment.
+                      </p>
+                    </Container>
+                  )}
                 </Col>
               </Row>
             </Container>

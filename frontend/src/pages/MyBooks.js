@@ -42,10 +42,15 @@ const MyBooks = () => {
                     <Card.Img
                       variant="top"
                       src={book.cover ? book.cover.url : ""}
-                      style={{ height: "50%" }}
+                      style={{ height: "72%" }}
                     />
                     <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
-                      <Card.Title className="fs-5">{book.title}</Card.Title>
+                      <Card.Title
+                        className="fs-5 my-card-title"
+                        title={book.title}
+                      >
+                        {book.title}
+                      </Card.Title>
                       <div
                         style={{
                           display: "flex",

@@ -39,6 +39,7 @@ function App({ children }) {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
+            paddingBottom: "30px",
           }}
         >
           {loading ? (

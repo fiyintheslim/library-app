@@ -26,6 +26,9 @@ exports.login = async (req, res, next) => {
 
 exports.signUp = catchAsyncError(async (req, res, next) => {
   const { name, email, password, avatar } = req.body;
+  if (!avatar) {
+    return next(new ErrorHandler("Error with avatar"));
+  }
   const result = await cloudinary.uploader.upload(avatar, {
     folder: "Bibli/avatars",
     width: 200,

@@ -101,7 +101,7 @@ const Books = () => {
                   </Container>
                 </Col>
                 <Col lg={10} className="p-0 m-0">
-                  {books.length > 0 ? (
+                  {books.books.length > 0 ? (
                     <Container fluid className="p-0 m-0">
                       <Row className="g-2 row-cols-4 p-0 m-0">
                         {books.books.map((book) => {

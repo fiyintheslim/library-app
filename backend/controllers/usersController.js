@@ -129,7 +129,9 @@ exports.passwordReset = catchAsyncError(async (req, res, next) => {
 
   const token = await exists.passwordReset();
 
-  const resetUrl = `${process.env.PROTOCOL}://${req.host}:${process.env.FRONTEND_PORT}/password/reset/${exists._id}/${token}`;
+  const resetUrl = `${req.protocol}://${req.get("host")}/password/reset/${
+    exists._id
+  }/${token}`;
   const emailConfig = {
     from: "fiyintests@gmail.com",
     to: email,

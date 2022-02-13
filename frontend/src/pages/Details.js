@@ -43,6 +43,7 @@ const Details = () => {
 
     addReview(dispatch, params.id, form);
     setModal(false);
+    setStar(0);
   };
 
   useEffect(() => {
@@ -273,6 +274,8 @@ const Details = () => {
                 starRatedColor={"gold"}
                 starEmptyColor={"rgb(203, 211, 227)"}
                 starHoverColor={"#f3e391"}
+                starDimension={"20px"}
+                starSpacing={"5px"}
               />
               <input
                 type="text"

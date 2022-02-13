@@ -354,3 +354,9 @@
 [0211/091058.734:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
 [0211/091058.734:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
 [0211/091058.734:ERROR:exception_snapshot_win.cc(99)] thread ID 12508 not found in process
+[0213/094508.493:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[0213/094508.520:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\USER\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\1bd868a8-230e-4138-9e8d-0d89c2ba52f5: The system cannot find the path specified. (0x3)
+[0213/133031.628:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0213/133031.730:ERROR:exception_snapshot_win.cc(99)] thread ID 4968 not found in process
+[0213/133031.628:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0213/133031.731:ERROR:exception_snapshot_win.cc(99)] thread ID 2060 not found in process

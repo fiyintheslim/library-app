@@ -7,7 +7,7 @@
     "dev": "SET NODE_ENV=DEVELOPMENT && nodemon ./backend/server.js",
     "prod": "node ./backend/server.js",
     "build": "npm i",
-    "install-client": "cd frontend && npm i",
+    "install-client": "cd frontend && npm i && npm run build",
     "heroku-postbuild": "npm run build && npm run install-client",
     "server": "npm run prod",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\"",

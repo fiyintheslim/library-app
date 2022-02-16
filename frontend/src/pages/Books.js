@@ -110,7 +110,10 @@ const Books = () => {
                               className="d-flex justify-content-center col-12 col-lg-3"
                               key={book._id}
                             >
-                              <Card style={{ height: "350px", width: "100%" }}>
+                              <Card
+                                className="shadow"
+                                style={{ height: "350px", width: "100%" }}
+                              >
                                 <Card.Img
                                   variant="top"
                                   src={book.cover ? book.cover.url : ""}

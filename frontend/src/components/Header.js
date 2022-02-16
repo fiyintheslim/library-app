@@ -62,9 +62,12 @@ const Header = () => {
           <Navbar.Brand className="">BIBLI</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav text-dark">
           <Nav className="me-auto">
-            <Link to="/books" className="text-decoration-none nav-link">
+            <Link
+              to="/books"
+              className="text-dark text-decoration-none nav-link"
+            >
               Books
             </Link>
             <NavDropdown title="" id="basic-nav-dropdown">
@@ -73,7 +76,7 @@ const Header = () => {
                   <NavDropdown.Item>
                     <Link
                       to="/me"
-                      className="d-block w-100 text-decoration-none"
+                      className="text-dark d-block w-100 text-decoration-none"
                     >
                       Profile
                       <Image
@@ -89,14 +92,17 @@ const Header = () => {
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>
-                    <Link to="/add" className="d-block text-decoration-none">
+                    <Link
+                      to="/add"
+                      className="text-dark d-block text-decoration-none"
+                    >
                       Add Book
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>
                     <Link
                       to="/books/mine"
-                      className="d-block text-decoration-none"
+                      className="text-dark d-block text-decoration-none"
                     >
                       My books
                     </Link>
@@ -113,7 +119,7 @@ const Header = () => {
               {!user && (
                 <>
                   <NavDropdown.Item>
-                    <Link className="d-block" to="/login">
+                    <Link className="text-dark d-block" to="/login">
                       Login
                     </Link>
                   </NavDropdown.Item>

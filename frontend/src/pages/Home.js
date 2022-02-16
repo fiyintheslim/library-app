@@ -62,7 +62,7 @@ const Home = () => {
         </Carousel>
       </Container>
       <Container className="my-2 text-light mb-5">
-        <Row className=" gy-2">
+        <Row className="gy-2">
           <Col lg className="mg-1">
             <Card className="d-flex flex-row align-middle bg-secondary p-3 rounded shadow-sm">
               <svg
@@ -133,7 +133,7 @@ const Home = () => {
       <Container className="my-2">
         <h1>Latest</h1>
         {latest && latest.length > 0 ? (
-          <Row className="bg-secondary p-3 rounded">
+          <Row className="gy-2 bg-secondary p-3 rounded">
             {latest.map((book, i) => {
               return (
                 <Col
@@ -171,14 +171,14 @@ const Home = () => {
             className="bg-secondary p-3 rounded d-flex justify-content-center align-items-center fs-3"
             style={{ height: "400px", color: "rgba(256, 256, 256, 0.8)" }}
           >
-            <p>Problem loading latest books</p>
+            <p>Latest books unavailable</p>
           </div>
         )}
       </Container>
       <Container className="my-2">
         <h1>Top Rated</h1>
         {rated && rated.length > 0 ? (
-          <Row className="bg-secondary p-3 rounded">
+          <Row className="gy-2 bg-secondary p-3 rounded gy-2">
             {rated.map((book, i) => {
               return (
                 <Col
@@ -216,7 +216,7 @@ const Home = () => {
             className="bg-secondary p-3 rounded d-flex justify-content-center align-items-center fs-3"
             style={{ height: "400px", color: "rgba(256, 256, 256, 0.8)" }}
           >
-            <p>Problem loading Top rated books</p>
+            <p>Top rated books unavailable</p>
           </div>
         )}
       </Container>

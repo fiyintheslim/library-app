@@ -144,7 +144,7 @@ const Home = () => {
                     <Card.Img
                       variant="top"
                       src={book.cover ? book.cover.url : ""}
-                      style={{ height: "72%" }}
+                      style={{ height: "72%", objectFit:"cover" }}
                     />
                     <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
                       <Card.Title
@@ -189,7 +189,7 @@ const Home = () => {
                     <Card.Img
                       variant="top"
                       src={book.cover ? book.cover.url : ""}
-                      style={{ height: "50%" }}
+                      style={{ height: "72%", objectFit:"cover" }}
                     />
                     <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
                       <Card.Title

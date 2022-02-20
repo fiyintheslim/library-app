@@ -274,7 +274,7 @@ const Details = () => {
                 starRatedColor={"gold"}
                 starEmptyColor={"rgb(203, 211, 227)"}
                 starHoverColor={"#f3e391"}
-                starDimension={"20px"}
+                starDimension={"40px"}
                 starSpacing={"5px"}
               />
               <input

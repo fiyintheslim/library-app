@@ -57,7 +57,7 @@ const Header = () => {
       sticky={"top"}
       expand="lg"
     >
-      <Container fluid>
+      <Container>
         <Link to="/" className="text-decoration-none text-white-50 logo">
           <Navbar.Brand className="">
             <img

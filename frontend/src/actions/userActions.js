@@ -53,7 +53,7 @@ export const register = async (dispatch, user) => {
     const account = await axios.post("/api/v1/register", user, config);
     dispatch({ type: REGISTER_USER_SUCCESS, payload: account.data });
   } catch (err) {
-    dispatch({ type: REGISTER_USER_FAIL, payload: err.response.data });
+    dispatch({ type: REGISTER_USER_FAIL, payload: err.response.data.error });
 
     dispatch({ type: CLEAR_ERRORS });
   }
@@ -66,7 +66,7 @@ export const loadUser = async (dispatch) => {
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: me.data });
   } catch (err) {
-    dispatch({ type: LOAD_USER_FAIL, payload: err.response.data.errorMessage });
+    dispatch({ type: LOAD_USER_FAIL, payload: err.response.data.error });
 
     dispatch({ type: CLEAR_ERRORS });
   }
@@ -76,7 +76,7 @@ export const logout = async (dispatch) => {
 
   const logout = await axios.get("/api/v1/logout");
 
-  dispatch({ type: LOGOUT_SUCCESS, payload: logout.data.message });
+  dispatch({ type: LOGOUT_SUCCESS, payload: logout.data.message.error });
 };
 export const deleteAccount = async (dispatch) => {
   try {
@@ -88,7 +88,7 @@ export const deleteAccount = async (dispatch) => {
   } catch (err) {
     dispatch({
       type: DELETE_PROFILE_FAIL,
-      payload: err.response.data.errorMessage,
+      payload: err.response.data.error,
     });
 
     dispatch({ type: CLEAR_ERRORS });
@@ -108,7 +108,7 @@ export const forgotPassword = async (dispatch, password) => {
   } catch (err) {
     dispatch({
       type: FORGOT_PASSWORD_FAIL,
-      payload: err.response.data.errorMessage,
+      payload: err.response.data.error,
     });
     dispatch({ type: CLEAR_ERRORS });
   }
@@ -133,7 +133,7 @@ export const resetPasssword = async (dispatch, det, form) => {
   } catch (error) {
     dispatch({
       type: RESET_PASSWORD_FAIL,
-      payload: error.response.data.errorMessage,
+      payload: error.response.data.error,
     });
     dispatch({ type: CLEAR_ERRORS });
   }

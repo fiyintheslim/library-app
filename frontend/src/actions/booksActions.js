@@ -34,9 +34,10 @@ export const addBook = async (dispatch, data) => {
 
     dispatch({ type: ADD_BOOK_SUCCESS, payload: res.data.book });
   } catch (error) {
+    console.log(error.response);
     dispatch({
       type: ADD_BOOK_FAIL,
-      payload: error.response.data.errorMessage,
+      payload: error.response.data.error,
     });
 
     dispatch({ type: CLEAR_ERRORS });
@@ -55,7 +56,7 @@ export const searchBook = async (dispatch, page, search, genre) => {
   } catch (error) {
     dispatch({
       type: REQUEST_BOOKS_FAIL,
-      payload: error.response,
+      payload: error.response.data.error,
     });
 
     dispatch({ type: CLEAR_ERRORS });
@@ -72,7 +73,7 @@ export const bookDetails = async (dispatch, id) => {
   } catch (error) {
     dispatch({
       type: REQUEST_DETAILS_FAIL,
-      payload: error.response.data.errorMessage,
+      payload: error.response.data.error,
     });
 
     dispatch({ type: CLEAR_ERRORS });
@@ -105,7 +106,7 @@ export const myBooks = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: MY_BOOKS_FAIL,
-      payload: error.response.data,
+      payload: error.response.data.error,
     });
 
     dispatch({ type: CLEAR_ERRORS });
@@ -123,7 +124,7 @@ export const deleteBook = async (dispatch, id) => {
   } catch (error) {
     dispatch({
       type: DELETE_BOOK_FAIL,
-      payload: error.response.data,
+      payload: error.response.data.error,
     });
 
     dispatch({ type: CLEAR_ERRORS });

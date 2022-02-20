@@ -91,3 +91,26 @@ ol li{
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;}
+  a{
+    outline-style:none;
+  }
+  .navbar-nav{
+    position:relative
+  }
+  .navbar-nav a::after{
+    display:none;
+    background:white;
+    content:"";
+    height:1px;
+    width:0px;
+  }
+  .navbar-nav a:hover:after{
+    height:1px;
+    width:100%;
+    content:"";
+    display:block;
+    background:white;
+    transition: width 2s ease 2s;
+    padding:0px;
+    margin:0px
+  }

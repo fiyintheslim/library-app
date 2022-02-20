@@ -38,7 +38,10 @@ const MyBooks = () => {
             {books.map((book) => {
               return (
                 <Col className="d-flex justify-content-center col-12 col-lg-3">
-                  <Card style={{ height: "350px", width: "100%" }}>
+                  <Card
+                    className="shadow pb-3"
+                    style={{ height: "370px", width: "100%" }}
+                  >
                     <Card.Img
                       variant="top"
                       src={book.cover ? book.cover.url : ""}
@@ -57,6 +60,7 @@ const MyBooks = () => {
                           justifyContent: "space-evenly",
                           width: "75%",
                         }}
+                        className="mt-3"
                       >
                         <Link
                           to={`/details/${book._id}`}

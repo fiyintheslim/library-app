@@ -56,7 +56,10 @@ const Profile = () => {
       navigate("/");
     }
     if (update.message) {
-      navigate("/");
+      loadUser(dispatch).then((res) => {
+        navigate("/me");
+      });
+
       alert.success(update.message);
     }
     if (update.error) {
@@ -75,7 +78,7 @@ const Profile = () => {
                 src={user.avatar.url}
                 roundedCircle={true}
                 style={{ objectFit: "cover", height: "320px", width: "320px" }}
-                className="img-fluid"
+                className="img-fluid border"
               />
               <Container
                 fluid="md"
@@ -94,13 +97,13 @@ const Profile = () => {
               </Container>
             </Col>
             <Col className="col-md d-flex flex-column justify-content-evenly">
-              <Card className="bibli-card">
+              <Card className="bibli-card my-2">
                 <Card.Body>
                   <Card.Title>Name</Card.Title>
                   <Card.Text>{user.name}</Card.Text>
                 </Card.Body>
               </Card>
-              <Card className="bibli-card">
+              <Card className="bibli-card my-2">
                 <Card.Body>
                   <Card.Title>Email</Card.Title>
                   <Card.Text>{user.email}</Card.Text>

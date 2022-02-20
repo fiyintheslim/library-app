@@ -6,6 +6,7 @@ import {
   CHANGE_PROFILE_PICTURE_SUCCESS,
   CHANGE_PROFILE_PICTURE_FAIL,
   CLEAR_ERRORS,
+  CLEAR,
 } from "../constants/userConstants";
 
 const updateUserReducer = (state = {}, action) => {
@@ -21,6 +22,10 @@ const updateUserReducer = (state = {}, action) => {
       return { ...state, loading: false, error: action.payload };
     case CLEAR_ERRORS:
       return { ...state, error: null };
+    case CLEAR:
+      return {
+        loading: false,
+      };
     default:
       return state;
   }

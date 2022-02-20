@@ -34,9 +34,10 @@ export const login = async (dispatch, data) => {
     const user = await axios.post("/api/v1/login", data, options);
     dispatch({ type: LOGIN_USER_SUCCESS, payload: user.data });
   } catch (err) {
+    console.log("error login", err.response);
     dispatch({
       type: LOGIN_USER_FAIL,
-      payload: err.response.data.errorMessage,
+      payload: err.response.data.error,
     });
     dispatch({ type: CLEAR_ERRORS });
   }

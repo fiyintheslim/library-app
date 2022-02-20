@@ -7,6 +7,7 @@ import {
   CHANGE_PROFILE_PICTURE_SUCCESS,
   CHANGE_PROFILE_PICTURE_FAIL,
   CLEAR_ERRORS,
+  CLEAR,
 } from "../constants/userConstants";
 export const changePassword = async (dispatch, data) => {
   try {
@@ -44,6 +45,7 @@ export const changeProfilePicture = async (dispatch, data) => {
       type: CHANGE_PROFILE_PICTURE_SUCCESS,
       payload: res.data.message,
     });
+    dispatch({ type: CLEAR });
   } catch (error) {
     dispatch({
       type: CHANGE_PROFILE_PICTURE_FAIL,
@@ -53,3 +55,4 @@ export const changeProfilePicture = async (dispatch, data) => {
     dispatch({ type: CLEAR_ERRORS });
   }
 };
+export const clear = async (dispatch) => {};

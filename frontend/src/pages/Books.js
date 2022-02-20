@@ -111,8 +111,8 @@ const Books = () => {
                               key={book._id}
                             >
                               <Card
-                                className="shadow"
-                                style={{ height: "350px", width: "100%" }}
+                                className="shadow pb-3"
+                                style={{ height: "370px", width: "100%" }}
                               >
                                 <Card.Img
                                   variant="top"
@@ -129,7 +129,7 @@ const Books = () => {
 
                                   <Link
                                     to={`/details/${book._id}`}
-                                    className="btn-primary btn btn-md"
+                                    className="btn-primary btn btn-md mt-3"
                                   >
                                     Details
                                   </Link>

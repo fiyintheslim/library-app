@@ -40,6 +40,7 @@ function App({ children }) {
             alignItems: "center",
             flexDirection: "column",
             paddingBottom: "30px",
+            background: "#e1e3e4",
           }}
         >
           {loading ? (

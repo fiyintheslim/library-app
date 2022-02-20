@@ -57,9 +57,14 @@ const Header = () => {
       sticky={"top"}
       expand="lg"
     >
-      <Container>
+      <Container fluid>
         <Link to="/" className="text-decoration-none text-white-50 logo">
-          <Navbar.Brand className="">BIBLI</Navbar.Brand>
+          <Navbar.Brand className="">
+            <img
+              src="/BIBLI-logo.png"
+              style={{ width: "80px", height: "75px" }}
+            />
+          </Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav text-dark">
@@ -70,62 +75,26 @@ const Header = () => {
             >
               Books
             </Link>
-            <NavDropdown title="" id="basic-nav-dropdown">
-              {user && (
-                <>
-                  <NavDropdown.Item>
-                    <Link
-                      to="/me"
-                      className="text-dark d-block w-100 text-decoration-none"
-                    >
-                      Profile
-                      <Image
-                        src={user.avatar.url}
-                        rounded={true}
-                        style={{
-                          width: "30px",
-                          height: "30px",
-                          marginLeft: "10px",
-                        }}
-                        className="me-10"
-                      />
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Link
-                      to="/add"
-                      className="text-dark d-block text-decoration-none"
-                    >
-                      Add Book
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Item>
-                    <Link
-                      to="/books/mine"
-                      className="text-dark d-block text-decoration-none"
-                    >
-                      My books
-                    </Link>
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item
-                    className="text-danger d-block"
-                    onClick={logoutHandler}
-                  >
-                    Logout
-                  </NavDropdown.Item>
-                </>
-              )}
-              {!user && (
-                <>
-                  <NavDropdown.Item>
-                    <Link className="text-dark d-block" to="/login">
-                      Login
-                    </Link>
-                  </NavDropdown.Item>
-                </>
-              )}
-            </NavDropdown>
+            {!user && (
+              <>
+                <Link
+                  className="text-dark text-decoration-none nav-link"
+                  to="/login"
+                >
+                  Login
+                </Link>
+              </>
+            )}
+            {user && (
+              <>
+                <Link
+                  to="/me"
+                  className="text-dark w-100 text-decoration-none nav-link"
+                >
+                  Profile
+                </Link>
+              </>
+            )}
           </Nav>
           <form className="d-flex">
             <FormControl
@@ -135,10 +104,59 @@ const Header = () => {
               aria-label="Search"
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Button variant="outline-success" onClick={handleSubmit}>
+            <Button
+              variant="outline-success"
+              className=""
+              onClick={handleSubmit}
+            >
               Search
             </Button>
           </form>
+          {user && (
+            <NavDropdown
+              title={
+                <Image
+                  src={user.avatar.url}
+                  roundedCircle={true}
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    marginLeft: "10px",
+                  }}
+                  className="border"
+                />
+              }
+              id="basic-nav-dropdown"
+              style={{ outlineStyle: "none" }}
+              className="px-0 px-lg-2"
+            >
+              <>
+                <NavDropdown.Item>
+                  <Link
+                    to="/books/mine"
+                    className="text-dark d-block text-decoration-none"
+                  >
+                    My books
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link
+                    to="/add"
+                    className="text-dark d-block text-decoration-none"
+                  >
+                    Add Book
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  className="text-danger d-block"
+                  onClick={logoutHandler}
+                >
+                  Logout
+                </NavDropdown.Item>
+              </>
+            </NavDropdown>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

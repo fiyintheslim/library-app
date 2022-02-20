@@ -131,20 +131,23 @@ const Home = () => {
         </Row>
       </Container>
       <Container className="my-2">
-        <h1>Latest</h1>
+        <h1 className="py-4 fw-bolder">Latest</h1>
         {latest && latest.length > 0 ? (
-          <Row className="gy-2 bg-secondary p-3 rounded">
+          <Row className="gy-2 p-3 rounded ">
             {latest.map((book, i) => {
               return (
                 <Col
                   className="d-flex justify-content-center col-12 col-lg-3"
                   key={book._id}
                 >
-                  <Card style={{ height: "350px", width: "100%" }}>
+                  <Card
+                    className="shadow pb-3"
+                    style={{ height: "370px", width: "100%" }}
+                  >
                     <Card.Img
                       variant="top"
                       src={book.cover ? book.cover.url : ""}
-                      style={{ height: "72%", objectFit:"cover" }}
+                      style={{ height: "72%", objectFit: "cover" }}
                     />
                     <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
                       <Card.Title
@@ -156,7 +159,7 @@ const Home = () => {
 
                       <Link
                         to={`/details/${book._id}`}
-                        className="btn-primary btn btn-md"
+                        className="btn-primary btn btn-md mt-3"
                       >
                         Details
                       </Link>
@@ -168,28 +171,31 @@ const Home = () => {
           </Row>
         ) : (
           <div
-            className="bg-secondary p-3 rounded d-flex justify-content-center align-items-center fs-3"
-            style={{ height: "400px", color: "rgba(256, 256, 256, 0.8)" }}
+            className="p-3 rounded d-flex justify-content-center align-items-center fs-3"
+            style={{ height: "400px" }}
           >
             <p>Latest books unavailable</p>
           </div>
         )}
       </Container>
       <Container className="my-2">
-        <h1>Top Rated</h1>
+        <h1 className="py-4 fw-bolder">Top Rated</h1>
         {rated && rated.length > 0 ? (
-          <Row className="gy-2 bg-secondary p-3 rounded gy-2">
+          <Row className="gy-2 p-3 rounded gy-2">
             {rated.map((book, i) => {
               return (
                 <Col
                   className="d-flex justify-content-center col-12 col-lg-3"
                   key={book._id}
                 >
-                  <Card style={{ height: "350px", width: "100%" }}>
+                  <Card
+                    className="shadow pb-3"
+                    style={{ height: "370px", width: "100%" }}
+                  >
                     <Card.Img
                       variant="top"
                       src={book.cover ? book.cover.url : ""}
-                      style={{ height: "72%", objectFit:"cover" }}
+                      style={{ height: "72%", objectFit: "cover" }}
                     />
                     <Card.Body className="d-flex flex-column align-items-center justify-content-evenly">
                       <Card.Title
@@ -201,7 +207,7 @@ const Home = () => {
 
                       <Link
                         to={`/details/${book._id}`}
-                        className="btn-primary btn btn-md"
+                        className="btn-primary btn btn-md mt-3"
                       >
                         Details
                       </Link>
@@ -213,8 +219,8 @@ const Home = () => {
           </Row>
         ) : (
           <div
-            className="bg-secondary p-3 rounded d-flex justify-content-center align-items-center fs-3"
-            style={{ height: "400px", color: "rgba(256, 256, 256, 0.8)" }}
+            className=" p-3 rounded d-flex justify-content-center align-items-center fs-3"
+            style={{ height: "400px" }}
           >
             <p>Top rated books unavailable</p>
           </div>

@@ -7,9 +7,11 @@ class Routes {
   search() {
     const keyword = this.req.query.search || "";
 
-    const result = this.books.find({
-      title: { $regex: keyword, $options: "i" },
-    });
+    const result = this.books
+      .find({
+        title: { $regex: keyword, $options: "i" },
+      })
+      .sort({ createdAt: "desc" });
     this.books = result;
     
     return this;

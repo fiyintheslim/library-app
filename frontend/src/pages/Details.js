@@ -63,7 +63,7 @@ const Details = () => {
             <Col lg={4} className="d-flex justify-content-center my-2">
               <Image
                 src={book && book.cover ? book.cover.url : ""}
-                className="img-fluid rounded shadow"
+                className="img-fluid rounded shadow w-100"
               />
             </Col>
             <Col

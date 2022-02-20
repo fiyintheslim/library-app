@@ -36,7 +36,7 @@ exports.addBook = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getBooks = catchAsyncErrors(async (req, res, next) => {
-  const paginationCount = 10;
+  const paginationCount = 8;
   const totalBooksCount = await Books.count({});
   const books = new RoutesHandler(req, Books).search().filter();
 

@@ -212,6 +212,7 @@ const AddBook = () => {
               aria-describedby="emailHelp"
               name="description"
               onChange={handleInput}
+              style={{ height: "200px" }}
             ></textarea>
           </div>
           <Container className="mb-2">

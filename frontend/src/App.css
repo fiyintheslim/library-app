@@ -114,3 +114,16 @@ ol li{
     padding:0px;
     margin:0px
   }
+  .bibli-bg{
+    background: #303179
+  }
+  .bibli-btn{
+    background:#141850;
+    color:rgb(196, 196, 196);
+  }
+  .bibli-btn:hover{
+    color:black;
+    background:none;
+    border:solid 1px #141850;
+    transition:background 1s ease, color 1s ease;
+  }

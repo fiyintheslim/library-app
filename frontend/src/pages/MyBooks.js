@@ -64,7 +64,7 @@ const MyBooks = () => {
                       >
                         <Link
                           to={`/details/${book._id}`}
-                          className="btn-primary btn btn-md"
+                          className="bibli-btn btn btn-md"
                         >
                           Details
                         </Link>

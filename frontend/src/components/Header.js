@@ -52,8 +52,7 @@ const Header = () => {
 
   return (
     <Navbar
-      bg="primary"
-      className="text-light-50 shadow"
+      className="text-light-50 shadow bibli-bg"
       sticky={"top"}
       expand="lg"
     >
@@ -71,14 +70,14 @@ const Header = () => {
           <Nav className="me-auto">
             <Link
               to="/books"
-              className="text-dark text-decoration-none nav-link"
+              className="text-white text-decoration-none nav-link"
             >
               Books
             </Link>
             {!user && (
               <>
                 <Link
-                  className="text-dark text-decoration-none nav-link"
+                  className="text-white text-decoration-none nav-link"
                   to="/login"
                 >
                   Login
@@ -89,7 +88,7 @@ const Header = () => {
               <>
                 <Link
                   to="/me"
-                  className="text-dark w-100 text-decoration-none nav-link"
+                  className="text-white w-100 text-decoration-none nav-link"
                 >
                   Profile
                 </Link>

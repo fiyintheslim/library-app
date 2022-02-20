@@ -79,7 +79,7 @@ const ChangePassword = () => {
 
           <button
             disabled={loading ? true : false}
-            className="btn btn-primary w-100"
+            className="btn bibli-btn w-100"
           >
             Change Password
           </button>

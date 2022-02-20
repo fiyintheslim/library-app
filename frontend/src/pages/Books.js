@@ -129,7 +129,7 @@ const Books = () => {
 
                                   <Link
                                     to={`/details/${book._id}`}
-                                    className="btn-primary btn btn-md mt-3"
+                                    className="bibli-btn btn btn-md mt-3"
                                   >
                                     Details
                                   </Link>

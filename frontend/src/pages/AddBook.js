@@ -241,7 +241,7 @@ const AddBook = () => {
 
           <button
             type="submit"
-            className="btn btn-primary w-100"
+            className="btn bibli-btn  w-100"
             disabled={loading}
           >
             Add Book

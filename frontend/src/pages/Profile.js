@@ -84,7 +84,7 @@ const Profile = () => {
                 fluid="md"
                 className="d-flex justify-content-evenly my-3"
               >
-                <Link className="btn btn-primary btn-sm" to="/password/update">
+                <Link className="btn bibli-btn btn-sm" to="/password/update">
                   Update Password
                 </Link>
                 <Button
@@ -109,13 +109,13 @@ const Profile = () => {
                   <Card.Text>{user.email}</Card.Text>
                 </Card.Body>
               </Card>
-              <Button
-                className="btn btn-primary btn-md w-100"
+              <button
+                className="btn bibli-btn btn-md w-100"
                 onClick={(e) => setModal(true)}
                 disabled={update.loading}
               >
                 Update Profile Picture
-              </Button>
+              </button>
             </Col>
           </Row>
         </Container>
@@ -155,7 +155,7 @@ const Profile = () => {
                 onChange={handleImg}
               />
               <Button
-                variant="primary"
+                className="bibli-btn"
                 disabled={update.loading}
                 onClick={handleSubmit}
               >

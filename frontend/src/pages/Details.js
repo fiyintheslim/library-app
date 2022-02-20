@@ -171,15 +171,12 @@ const Details = () => {
                 <a
                   target="_blank"
                   href={book.link}
-                  className="btn btn-md btn-primary"
+                  className="btn btn-md bibli-btn"
                   rel="noreferrer"
                 >
                   Read book
                 </a>
-                <button
-                  onClick={handleModal}
-                  className="btn btn-md btn-primary"
-                >
+                <button onClick={handleModal} className="btn btn-md bibli-btn">
                   Review
                 </button>
               </div>

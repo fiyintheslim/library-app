@@ -36,7 +36,7 @@ const ForgotPassword = () => {
     <Container className="my-5 h-100 d-flex justify-content-center align-items-center">
       <form
         onSubmit={handleSubmit}
-        className="w-100 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+        className="w-100 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2 bibli-form"
         style={{ maxWidth: "750px" }}
       >
         <h5 className="fs-2">Forgot Password</h5>

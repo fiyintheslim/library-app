@@ -100,7 +100,7 @@ const AddBook = () => {
       >
         <form
           onSubmit={(e) => submit(e)}
-          className="mx-0 mx-sm-2 mx-md-5 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2"
+          className="mx-0 mx-sm-2 mx-md-5 d-flex flex-column align-items-center rounded py-4 px-2 px-md-5 border border-2 bibli-form"
           style={{ maxWidth: "700px" }}
           autocomplete="off"
         >
@@ -219,7 +219,7 @@ const AddBook = () => {
             <h6 className="fs-5">Genres</h6>
             <Row>
               {genres.map((genre) => (
-                <div class="form-check form-switch col-sm-3">
+                <div class="form-check form-switch col-6 col-md-3">
                   <input
                     className="form-check-input"
                     type="checkbox"

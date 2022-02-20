@@ -23,6 +23,7 @@ const bookDetailsReducer = (state = {}, action) => {
         ...state,
         loading: false,
         success: true,
+        message: action.payload.message,
       };
     case REQUEST_DETAILS_FAIL:
     case ADD_REVIEW_FAIL:

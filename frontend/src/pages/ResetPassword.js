@@ -45,7 +45,7 @@ const ResetPassword = () => {
       <Container className="my-5 d-flex justify-content-center" fluid="md">
         <form
           onSubmit={(e) => handleSubmit(e)}
-          className="mx-0 w-100 mx-md-5 border border-light border-2 border-rounded p-3 d-flex flex-column align-items-center"
+          className="mx-0 w-100 mx-md-5 border border-light border-2 border-rounded p-3 d-flex flex-column align-items-center bibli-form"
           style={{ maxWidth: "750px" }}
         >
           <h5 className="fs-2">Change Password</h5>

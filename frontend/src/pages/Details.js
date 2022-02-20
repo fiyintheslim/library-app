@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
@@ -12,6 +12,7 @@ import {
   Nav,
   Card,
 } from "react-bootstrap";
+import { useAlert } from "react-alert";
 import { bookDetails, addReview } from "../actions/booksActions";
 import MetaData from "../components/MetaData";
 import StarRatings from "react-star-ratings";
@@ -19,10 +20,12 @@ import StarRatings from "react-star-ratings";
 const Details = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const alert = useAlert();
   const { book, loading, error, success } = useSelector(
     (state) => state.details
   );
-  const { user } = useSelector((state) => state.auth);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
 
   const [modal, setModal] = useState(false);
   const [modalInfo, setModalInfo] = useState(true);
@@ -40,7 +43,10 @@ const Details = () => {
     form.set("rating", star);
     form.set("title", reviewTitle);
     form.set("comment", comment);
-
+    if (!isAuthenticated) {
+      navigate("/login");
+      alert.error("Login to leave a review.");
+    }
     addReview(dispatch, params.id, form);
     setModal(false);
     setStar(0);
@@ -48,6 +54,9 @@ const Details = () => {
 
   useEffect(() => {
     bookDetails(dispatch, params.id);
+    if (success) {
+      alert.success("Review successfully added.");
+    }
   }, [success]);
   useEffect(() => {
     if (book) {
@@ -291,9 +300,9 @@ const Details = () => {
                 onChange={(e) => setComment(e.target.value)}
                 placeholder="What are your thoughts on the book?"
               ></textarea>
-              <Button variant="primary" onClick={handleReview}>
+              <button className="btn bibli-btn" onClick={handleReview}>
                 Rate Book
-              </Button>
+              </button>
             </Card.Body>
           </Card>
         </Modal.Body>

@@ -44,7 +44,7 @@ const ChangePassword = () => {
       <Container className="my-5 d-flex justify-content-center" fluid="md">
         <form
           onSubmit={(e) => handleSubmit(e)}
-          className="border border-light border-2 border-rounded p-3 w-50 d-flex flex-column align-items-center"
+          className="border border-light border-2 border-rounded p-3 w-50 d-flex flex-column align-items-center bibli-form"
         >
           <h5 className="fs-2">Change Password</h5>
           <Form.Group className="mb-4 w-100">

@@ -127,3 +127,6 @@ ol li{
     border:solid 1px #141850;
     transition:background 1s ease, color 1s ease;
   }
+  .bibli-form{
+    background:#f2f2f2
+  }

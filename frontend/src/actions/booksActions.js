@@ -88,7 +88,7 @@ export const addReview = async (dispatch, id, data) => {
     };
     const res = await axios.post(`/api/v1/review/${id}`, data, config);
 
-    dispatch({ type: ADD_REVIEW_SUCCESS });
+    dispatch({ type: ADD_REVIEW_SUCCESS, payload: res.data });
   } catch (error) {
     dispatch({ type: ADD_REVIEW_FAIL });
 
